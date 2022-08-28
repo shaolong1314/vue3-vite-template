@@ -53,7 +53,8 @@ export const filterAsyncRouter = (routers) => {
 
 export const loadView = (view) => {
   // 路由懒加载
-  return (resolve) => require([`@/views/${view}`], resolve);
+  // return (resolve) => require([`@/views/${view}`], resolve);
+  return () => import(`../views/${view}.vue`);
 };
 
 /**

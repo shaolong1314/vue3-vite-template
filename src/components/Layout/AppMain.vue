@@ -1,7 +1,15 @@
 <script setup>
-import { computed } from "@vue/runtime-core";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
-import routes from "~/router/routers";
+import { useStore } from "vuex";
+
+// import routes from "~/router/routers";
+
+const store = useStore();
+
+const _routes = computed(() => {
+  return store.state.permission.routers;
+});
 
 const route = useRoute();
 const key = computed(() => {
@@ -20,7 +28,7 @@ const keepAliveArr = computed(() => {
       }
     });
   };
-  setKeepLive(routes);
+  setKeepLive(_routes.value);
   return arr;
 });
 </script>
@@ -29,7 +37,7 @@ const keepAliveArr = computed(() => {
   <div class="app-main">
     <router-view v-slot="{ Component }">
       <Transition name="fade-transform" mode="out-in">
-        <keep-alive :include="keepAliveArr" :max="10">
+        <keep-alive :include="keepAliveArr">
           <component :is="Component" />
         </keep-alive>
       </Transition>

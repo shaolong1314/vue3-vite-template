@@ -1,5 +1,5 @@
-import { login, logout, getInfo, refreshToken, userLogin } from "@/api/login";
-import { getToken, setToken, setExpiresIn, removeToken } from "@/utils/auth";
+import { login, logout, getInfo, getUserMenu } from "@/api/login";
+import { getToken, setToken, removeToken } from "@/utils/auth";
 import { ElMessage } from "element-plus";
 
 const user = {
@@ -35,16 +35,17 @@ const user = {
 
   actions: {
     // 登录
-    async Login({ commit }, payload) {
+    async Login({ commit }, params) {
       return new Promise(async (resolve, reject) => {
         let result = null;
         if (params.type == "phone") {
-          result = await userLogin(params.form).catch((err) => {
+          result = await userLogin(params).catch((err) => {
             reject();
           });
           console.log("手机号登录 => ", result);
         } else if (params.type == "username") {
-          result = await login(params.form).catch((err) => {
+          result = await login(params).catch((err) => {
+            console.log(err);
             reject();
           });
           console.log("用户名密码登录 => ", result);
@@ -53,11 +54,9 @@ const user = {
         if (result) {
           const { code } = result;
           if (code == 200) {
-            let data = result.data;
-            setToken(data.access_token, params.rememberMe ? 30 * 24 * 60 : data.expires_in);
-            commit("SET_TOKEN", data.access_token);
-            setExpiresIn(data.expires_in);
-            commit("SET_EXPIRES_IN", data.expires_in);
+            setToken(result.data);
+            commit("SET_TOKEN", result.data);
+            resolve(result);
           } else if (code == 1007) {
             ElMessage.error("用户已被停用");
             return reject();
@@ -67,8 +66,9 @@ const user = {
           } else if (code == 1009) {
             ElMessage.error("验证码错误");
             return reject();
+          } else {
+            ElMessage.error(result.msg);
           }
-          resolve(result);
         } else {
           reject(result);
         }
@@ -79,9 +79,17 @@ const user = {
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo(state.token)
-          .then(async (res) => {
-            console.log("用户信息", res);
-            resolve(res);
+          .then((res) => {
+            if (res && res.code == 200) {
+              const result_data = res.data;
+              if (result_data.role && result_data.role.role_menu) {
+                result_data.roles = result_data.role.role_menu.map((item) => {
+                  return item.menu && item.menu.permission;
+                });
+              }
+              setUserInfo(result_data, commit);
+              resolve(result_data);
+            }
           })
           .catch((error) => {
             reject(error);
@@ -94,7 +102,6 @@ const user = {
       return new Promise((resolve, reject) => {
         refreshToken(state.token)
           .then((res) => {
-            setExpiresIn(res.data.expires_in);
             commit("SET_EXPIRES_IN", res.data.expires_in);
             resolve();
           })
@@ -134,6 +141,17 @@ const user = {
       });
     },
   },
+};
+
+export const setUserInfo = (res, commit) => {
+  // console.log(res);
+  // 如果没有任何权限，则赋予一个默认的权限，避免请求死循环
+  if (res.roles.length === 0) {
+    commit("SET_ROLES", ["ROLE_SYSTEM_DEFAULT"]);
+  } else {
+    commit("SET_ROLES", res.roles);
+  }
+  commit("SET_USER", res);
 };
 
 export default user;

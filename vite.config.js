@@ -56,5 +56,21 @@ export default defineConfig({
     proxy: {
       "/api": { target: "https://scbn.test.dev.mhjy.net.cn/", changeOrigin: true, rewrite: (path) => path.replace(/^\/api/, "") },
     },
+    hmr: true,
+    port: 8080,
+    open: true,
+  },
+
+  build: {
+    rollupOptions: {
+      // https://rollupjs.org/guide/en/#outputmanualchunks
+      output: {
+        manualChunks: {
+          index: ["../views/Index.vue"],
+          login: ["../views/Login.vue"],
+          error: ["../views/error/404.vue", "../views/error/401.vue"],
+        },
+      },
+    },
   },
 });

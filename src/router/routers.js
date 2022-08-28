@@ -6,7 +6,6 @@
  * redirect: noRedirect           // 当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
  * name:'router-name'             // 设定路由的名字，规则：跟文件名字保持一致；缓存路由必须设置
  * meta : {
-    noCache: true                 // 如果设置为true，则不会被 <keep-alive> 缓存(默认 false)
     title: 'title'                // 设置该路由在侧边栏和面包屑中展示的名字
     icon: 'svg-name'              // 设置该路由的图标，对应路径src/assets/icons/svg
     breadcrumb: false             // 如果设置为false，则不会在breadcrumb面包屑中显示
@@ -15,7 +14,7 @@
   }
  */
 
-import Layout from "../components/Layout/index.vue";
+import Layout from "~/components/Layout/index.vue";
 const routes = [
   // 首页
   {
@@ -26,9 +25,8 @@ const routes = [
       {
         path: "/index",
         name: "Index",
-        component: () => import(/* webpackChunkName: "index" */ "../views/Index.vue"),
+        component: () => import("../views/Index.vue"),
         meta: {
-          noCache: true,
           title: "首页",
           icon: "",
           breadcrumb: true,
@@ -37,57 +35,73 @@ const routes = [
       },
     ],
   },
+  // {
+  //   path: "/sysManage",
+  //   component: Layout,
+  //   meta: {
+  //     title: "系统管理",
+  //     icon: "",
+  //     breadcrumb: true,
+  //     hidden: false,
+  //   },
+  //   children: [
+  //     {
+  //       path: "/user",
+  //       name: "UserManage",
+  //       component: () => import(/* webpackChunkName: "UserManage" */ "../views/sysManage/UserManage.vue"),
+  //       meta: {
+  //         title: "用户管理",
+  //         icon: "",
+  //         breadcrumb: true,
+  //         hidden: false,
+  //         keepAlive: false,
+  //       },
+  //     },
+  //     {
+  //       path: "/menu",
+  //       name: "MenuManage",
+  //       component: () => import(/* webpackChunkName: "MenuManage" */ "../views/sysManage/MenuManage.vue"),
+  //       meta: {
+  //         title: "菜单管理",
+  //         icon: "",
+  //         breadcrumb: true,
+  //         hidden: false,
+  //         keepAlive: true,
+  //       },
+  //     },
+  //     {
+  //       path: "/role",
+  //       name: "RoleManage",
+  //       component: () => import(/* webpackChunkName: "RoleManage" */ "../views/sysManage/RoleManage.vue"),
+  //       meta: {
+  //         title: "角色管理",
+  //         icon: "",
+  //         breadcrumb: true,
+  //         hidden: false,
+  //         keepAlive: false,
+  //       },
+  //     },
+  //   ],
+  // },
   {
-    path: "/sysManage",
-    component: Layout,
+    path: "/login",
+    component: () => import("../views/Login.vue"),
     meta: {
-      noCache: true,
-      title: "系统管理",
+      title: "登录",
       icon: "",
-      breadcrumb: true,
-      hidden: false,
+      breadcrumb: false,
+      hidden: true,
     },
-    children: [
-      {
-        path: "/user",
-        name: "UserManage",
-        component: () => import(/* webpackChunkName: "sysManage" */ "../views/sysManage/UserManage.vue"),
-        meta: {
-          noCache: true,
-          title: "用户管理",
-          icon: "",
-          breadcrumb: true,
-          hidden: false,
-          keepAlive: false,
-        },
-      },
-      {
-        path: "/menu",
-        name: "MenuManage",
-        component: () => import(/* webpackChunkName: "sysManage" */ "../views/sysManage/MenuManage.vue"),
-        meta: {
-          noCache: true,
-          title: "菜单管理",
-          icon: "",
-          breadcrumb: true,
-          hidden: false,
-          keepAlive: true,
-        },
-      },
-      {
-        path: "/role",
-        name: "RoleManage",
-        component: () => import(/* webpackChunkName: "sysManage" */ "../views/sysManage/RoleManage.vue"),
-        meta: {
-          noCache: true,
-          title: "角色管理",
-          icon: "",
-          breadcrumb: true,
-          hidden: false,
-          keepAlive: false,
-        },
-      },
-    ],
+  },
+  {
+    path: "/404",
+    component: () => import("../views/error/404.vue"),
+    hidden: true,
+  },
+  {
+    path: "/401",
+    component: () => import("../views/error/401.vue"),
+    hidden: true,
   },
 ];
 

@@ -1,10 +1,11 @@
 import router from "./index.js";
-// import store from "../store";
+import { store } from "../store";
 import { ElMessage } from "element-plus";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { getToken } from "~/utils/auth";
 import { trim_async_routes, filterAsyncRouter, loadView } from "~/utils/format.js";
+import { getListByRole, getMenusList } from "@/api/sysManage/menuManage";
 
 NProgress.configure({ showSpinner: false });
 
@@ -61,9 +62,9 @@ export const loadMenus = (next, to) => {
       // console.log("当前用户的菜单", res);
       if (res.data && Array.isArray(res.data)) {
         const menus = trim_async_routes(res.data);
-        // console.log("菜单", menus);
+        console.log("菜单", menus);
         const asyncRouter = filterAsyncRouter(menus);
-        asyncRouter.push({ path: "*", redirect: "/404", hidden: true });
+        asyncRouter.push({ path: "/:catchAll(.*)", redirect: "/404", hidden: true });
         store
           .dispatch("generateRoutes", asyncRouter)
           .then((res) => {

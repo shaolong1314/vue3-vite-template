@@ -10,7 +10,7 @@ export function getMenusList(params) {
 }
 
 // 根据角色获取菜单列表
-export function getListByRole(params) {
+export function getListByRole(data) {
   return request({
     url: "/backend/publicize/getMenuInfo",
     method: "post",

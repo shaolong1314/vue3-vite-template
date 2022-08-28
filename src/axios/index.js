@@ -1,7 +1,7 @@
 import Axios from "axios";
 import qs from "qs";
 import { ElNotification, ElMessage } from "element-plus";
-// import store from "~/store";
+import { store } from "~/store";
 import { getToken } from "@/utils/auth";
 import { tansParams } from "@/utils/format";
 
@@ -20,11 +20,7 @@ const service = Axios.create({
 service.interceptors.request.use(
   (config) => {
     // 是否需要设置 token
-    const isToken = (config.headers || {}).isToken === false;
-    // if (getToken() && !isToken) {
-    //   config.headers["Authorization"] = "Bearer " + getToken(); // 让每个请求携带自定义token 请根据实际情况自行修改
-    // }
-    config.headers["Access-Token"] = "755e55713ccbbf0f0f5b57dc082e8da8 ";
+    config.headers["Access-Token"] = getToken();
     return config;
   },
   (error) => {
@@ -38,33 +34,31 @@ service.interceptors.response.use(
   (res) => {
     // 未设置状态码则默认成功状态
     const code = res.data.code || 200;
-    // 获取错误信息
-    // const msg = errorCode[code] || res.data.msg || errorCode["default"];
     if (code === 401) {
-      // MessageBox.confirm("登录状态已过期，您可以继续留在该页面，或者重新登录", "系统提示", {
-      //   confirmButtonText: "重新登录",
-      //   cancelButtonText: "取消",
-      //   type: "warning",
-      // }).then(() => {
-      //   store
-      //     .dispatch("LogOut")
-      //     .then(() => {
-      //       location.href = "/index";
-      //     })
-      //     .catch((err) => {
-      //       location.href = "/index";
-      //     });
-      // });
+      MessageBox.confirm("登录状态已过期，您可以继续留在该页面，或者重新登录", "系统提示", {
+        confirmButtonText: "重新登录",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        store
+          .dispatch("FedLogOut")
+          .then(() => {
+            location.href = "/";
+          })
+          .catch((err) => {
+            location.href = "/";
+          });
+      });
     } else if (code === 500) {
-      ElMessage.error(msg);
-      return Promise.reject(new Error(msg));
+      ElMessage.error(res.data.msg);
+      return Promise.reject(new Error(res.data.msg));
     } else if (code !== 200) {
-      let notNeedCode = [1610];
-      if (!notNeedCode.includes(code)) {
-        ElNotification.error({
-          title: msg,
-        });
-      }
+      // let notNeedCode = [1610];
+      // if (!notNeedCode.includes(code)) {
+      //   ElNotification.error({
+      //     title: res.data.msg,
+      //   });
+      // }
       return Promise.reject(res.data);
     } else {
       return res.data;

@@ -1,4 +1,4 @@
-import { routes } from "~/router";
+import routes from "~/router/routers";
 
 const permission = {
   state: {

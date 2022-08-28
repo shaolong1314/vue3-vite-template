@@ -1,9 +1,10 @@
 <script setup>
-import useTable from "@/hooks/useTable.js";
-import { ref } from "vue";
-import { getRolesList } from "@/api/sysManage/roleManage";
+import useTable from "../../hooks/useTable";
+import { getRolesList } from "../../api/sysManage/roleManage";
 
-const { pagination, searchData, tableData, getTableList, sizeChange, currentChange, onReset, onSearch } = useTable(getRolesList);
+import { ref } from "vue";
+
+const { pagination, searchData, tableData, getTableList, sizeChange, currentChange, onReset, onSearch } = useTable();
 
 const currentRole = ref(true);
 </script>
@@ -15,13 +16,12 @@ const currentRole = ref(true);
         <el-form-item label="角色名称">
           <el-input v-model="searchData.name" placeholder="请输入" clearable></el-input>
         </el-form-item>
-        <el-form-item label="角色名称">
+        <el-form-item>
           <el-button type="primary" @click="onSearch()">查询</el-button>
           <el-button plain @click="onReset()">重置</el-button>
         </el-form-item>
       </el-form>
     </el-card>
-
     <div class="content">
       <div class="content-btns" style="display: flex; justify-content: space-between">
         <div>
@@ -29,7 +29,7 @@ const currentRole = ref(true);
         </div>
         <div v-show="currentRole">
           <span style="margin: 0 10px"> 当前角色: 超级管理员 </span>
-          <el-button plain @click="(currentRole = null), $refs.menu.setCheckedKeys([])"> 清空 </el-button>
+          <!-- <el-button plain @click="(currentRole = null), $refs.menu.setCheckedKeys([])"> 清空 </el-button> -->
         </div>
       </div>
       <div class="content-table">
