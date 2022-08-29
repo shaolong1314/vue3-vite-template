@@ -23,7 +23,7 @@ const routes = [
     redirect: "index",
     children: [
       {
-        path: "/index",
+        path: "index",
         name: "Index",
         component: () => import("../views/Index.vue"),
         meta: {
@@ -46,7 +46,7 @@ const routes = [
   //   },
   //   children: [
   //     {
-  //       path: "/user",
+  //       path: "user",
   //       name: "UserManage",
   //       component: () => import(/* webpackChunkName: "UserManage" */ "../views/sysManage/UserManage.vue"),
   //       meta: {
@@ -58,7 +58,7 @@ const routes = [
   //       },
   //     },
   //     {
-  //       path: "/menu",
+  //       path: "menu",
   //       name: "MenuManage",
   //       component: () => import(/* webpackChunkName: "MenuManage" */ "../views/sysManage/MenuManage.vue"),
   //       meta: {
@@ -70,7 +70,7 @@ const routes = [
   //       },
   //     },
   //     {
-  //       path: "/role",
+  //       path: "role",
   //       name: "RoleManage",
   //       component: () => import(/* webpackChunkName: "RoleManage" */ "../views/sysManage/RoleManage.vue"),
   //       meta: {

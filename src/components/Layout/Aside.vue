@@ -9,7 +9,6 @@ const _routes = computed(() => {
   return store.state.permission.routers;
 });
 
-console.log(_routes);
 const route = useRoute();
 
 const onRoutes = computed(() => {
@@ -38,10 +37,10 @@ const onRoutes = computed(() => {
               <span>{{ item.meta && item.meta.title }}</span>
             </template>
             <template v-for="subItem in item.children">
-              <el-sub-menu v-if="subItem.children && subItem.children.length > 0" :index="'/' + subItem.path" :key="subItem.path">
+              <el-sub-menu v-if="subItem.children && subItem.children.length > 0" :index="item.path + '/' + subItem.path" :key="subItem.path">
                 <template #title>{{ subItem.meta && subItem.meta.title }}</template>
               </el-sub-menu>
-              <el-menu-item v-else :index="'/' + subItem.path">
+              <el-menu-item v-else :index="item.path + '/' + subItem.path">
                 {{ subItem.meta && subItem.meta.title }}
               </el-menu-item>
             </template>
@@ -50,7 +49,7 @@ const onRoutes = computed(() => {
 
         <!-- 只有一个子路由，则当顶级路由展示 -->
         <template v-else-if="item.children && item.children.length == 1">
-          <el-menu-item :index="item.children[0].path" :key="item.children[0].path" v-if="item.meta && !item.meta.hidden">
+          <el-menu-item :index="item.path + '/' + item.children[0].path" :key="item.path + '/' + item.children[0].path" v-if="item.children[0].meta && !item.children[0].meta.hidden">
             <!-- <el-icon>
                   <component :is="item.icon"></component>
                 </el-icon> -->

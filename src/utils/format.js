@@ -25,6 +25,7 @@ export function trim_async_routes(routes) {
 
 import Layout from "~/components/Layout/index.vue";
 
+const modules = import.meta.glob(`../views/**/*.vue`);
 export const filterAsyncRouter = (routers) => {
   // 遍历后台传来的路由字符串，转换为组件对象
   const accessedRouters = routers.filter((router) => {
@@ -53,8 +54,7 @@ export const filterAsyncRouter = (routers) => {
 
 export const loadView = (view) => {
   // 路由懒加载
-  // return (resolve) => require([`@/views/${view}`], resolve);
-  return () => import(`../views/${view}.vue`);
+  return modules[`../views/${view}.vue`];
 };
 
 /**

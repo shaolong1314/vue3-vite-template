@@ -62,21 +62,17 @@ export const loadMenus = (next, to) => {
       // console.log("当前用户的菜单", res);
       if (res.data && Array.isArray(res.data)) {
         const menus = trim_async_routes(res.data);
-        console.log("菜单", menus);
         const asyncRouter = filterAsyncRouter(menus);
         asyncRouter.push({ path: "/:catchAll(.*)", redirect: "/404", hidden: true });
-        store
-          .dispatch("generateRoutes", asyncRouter)
-          .then((res) => {
-            asyncRouter.forEach((item) => {
-              router.addRoute(item);
-            });
-            // router.addRoutes(asyncRouter);
-            next({ ...to, replace: true });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        store.dispatch("generateRoutes", asyncRouter);
+        asyncRouter.forEach((item) => {
+          router.addRoute(item);
+        });
+        if (!to.matched.length) {
+          router.push(to.path);
+        }
+        // router.addRoutes(asyncRouter);
+        // next({ ...to, replace: true });
       } else {
         next({ ...to, replace: true });
       }

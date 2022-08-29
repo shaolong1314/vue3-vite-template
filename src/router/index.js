@@ -3,7 +3,7 @@ import routes from "./routers";
 
 const router = createRouter({
   // history: createWebHistory(process.env.BASE_URL),
-  history: createWebHistory(),
+  history: createWebHistory("/"),
   routes,
   scrollBehavior(to, from, savedPosition) {
     // always scroll to top

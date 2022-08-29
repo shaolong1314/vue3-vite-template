@@ -163,7 +163,7 @@ function request(config) {
       config.data = qs.stringify(config.data);
     }
   }
-  config.url = "/api" + config.url;
+  config.url = "/api/" + config.url;
 
   return service(config);
 }
