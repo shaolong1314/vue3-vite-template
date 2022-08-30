@@ -1,7 +1,7 @@
 import request from "@/axios";
 
 // 获取菜单列表
-export function getMenusList(params) {
+export function getMenusList(data) {
   return request({
     url: "/backend/menu/finds",
     method: "post",

@@ -1,8 +1,6 @@
 import { reactive, ref } from "vue";
 
-import { getRolesList } from "@/api/sysManage/roleManage";
-
-export default function useTable() {
+export default function useTable(getList) {
   const searchData = reactive({});
   const pagination = reactive({
     total: 0,
@@ -16,7 +14,7 @@ export default function useTable() {
 
   // 获取表格数据
   const getTableList = (params) => {
-    getRolesList(params).then((res) => {
+    getList(params).then((res) => {
       if (res && res.code == 200) {
         const { total, data } = res.data;
         tableData.value = data;

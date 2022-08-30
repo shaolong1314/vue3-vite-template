@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="left">Your Copyright.</div>
     <div class="right">
-      <a target="_blank" href="https://github.com/newbee-ltd/vue3-admin">vue3-admin Version 3.2.37</a>
+      <a target="_blank" href="https://cn.vuejs.org/">vue3-admin Version 3.2.37</a>
     </div>
   </div>
 </template>

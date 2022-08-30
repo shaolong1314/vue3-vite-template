@@ -1,3 +1,11 @@
 :root {
   --theme-color: #1baeae;
 }
+
+.el-icon {
+  vertical-align: text-bottom;
+}
+
+.el-pagination {
+  justify-content: flex-end;
+}

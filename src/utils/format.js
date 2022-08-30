@@ -11,7 +11,7 @@ export function trim_async_routes(routes) {
         id: item.menu_id,
         iframe: item.is_outsize,
         meta: { url: item.is_outsize ? item.component_url : "", title: item.name, icon: item.icon, cache: item.is_cache },
-        name: item.name,
+        name: item.component_name,
         path: !item.parent_id ? "/" + item.url : item.url,
       };
       if (item.children && item.children.length > 0) {

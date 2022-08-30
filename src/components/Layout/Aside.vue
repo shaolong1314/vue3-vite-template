@@ -29,7 +29,7 @@ const onRoutes = computed(() => {
       <template v-for="item in _routes">
         <!-- 多个子路由 -->
         <template v-if="item.children && item.children.length > 1">
-          <el-sub-menu :index="item.path" :key="item.path" v-if="item.meta && !item.meta.hidden">
+          <el-sub-menu :index="item.path" :key="item.path" v-if="!item.hidden">
             <template #title>
               <!-- <el-icon>
                     <component :is="item.icon"></component>
@@ -37,18 +37,20 @@ const onRoutes = computed(() => {
               <span>{{ item.meta && item.meta.title }}</span>
             </template>
             <template v-for="subItem in item.children">
-              <el-sub-menu v-if="subItem.children && subItem.children.length > 0" :index="item.path + '/' + subItem.path" :key="subItem.path">
-                <template #title>{{ subItem.meta && subItem.meta.title }}</template>
-              </el-sub-menu>
-              <el-menu-item v-else :index="item.path + '/' + subItem.path">
-                {{ subItem.meta && subItem.meta.title }}
-              </el-menu-item>
+              <template v-if="!subItem.hidden">
+                <el-sub-menu v-if="subItem.children && subItem.children.length > 0" :index="item.path + '/' + subItem.path" :key="subItem.path">
+                  <template #title>{{ subItem.meta && subItem.meta.title }}</template>
+                </el-sub-menu>
+                <el-menu-item v-else :index="item.path + '/' + subItem.path">
+                  {{ subItem.meta && subItem.meta.title }}
+                </el-menu-item>
+              </template>
             </template>
           </el-sub-menu>
         </template>
 
-        <!-- 只有一个子路由，则当顶级路由展示 -->
-        <template v-else-if="item.children && item.children.length == 1">
+        <!-- 只有一个子路由，当顶级路由展示 -->
+        <template v-else-if="!item.hidden && item.children && item.children.length == 1">
           <el-menu-item :index="item.path + '/' + item.children[0].path" :key="item.path + '/' + item.children[0].path" v-if="item.children[0].meta && !item.children[0].meta.hidden">
             <!-- <el-icon>
                   <component :is="item.icon"></component>
@@ -59,7 +61,7 @@ const onRoutes = computed(() => {
 
         <!-- 没有子路由 -->
         <template v-else>
-          <el-menu-item :index="item.path" :key="item.path" v-if="item.meta && !item.meta.hidden">
+          <el-menu-item :index="item.path" :key="item.path" v-if="!item.hidden">
             <!-- <el-icon>
                   <component :is="item.icon"></component>
                 </el-icon> -->

@@ -4,7 +4,8 @@ import { getRolesList } from "../../api/sysManage/roleManage";
 
 import { ref } from "vue";
 
-const { pagination, searchData, tableData, getTableList, sizeChange, currentChange, onReset, onSearch } = useTable();
+// 表单-表格hooks，传入列表接口可获取表格数据，且集搜索以及重置功能
+const { pagination, searchData, tableData, sizeChange, currentChange, onReset, onSearch } = useTable(getRolesList);
 
 const currentRole = ref(true);
 </script>

@@ -1,11 +1,13 @@
 <script setup>
-import { Edit } from "@element-plus/icons-vue";
 import { onMounted, ref, watch } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
-const userInfo = {
-  loginUserName: "登录用户名称",
-  nickName: "昵称",
-};
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const userInfo = computed(() => {
+  return store.getters.userInfo;
+});
 
 const name = "admin";
 
@@ -56,14 +58,14 @@ onMounted(() => {
       <el-popover placement="bottom" :width="320" trigger="click" popper-class="popper-user-box">
         <template #reference>
           <div class="author">
-            <i class="icon el-icon-s-custom" />
-            {{ (userInfo && userInfo.nickName) || "" }}
-            <i class="el-icon-caret-bottom" />
+            <el-icon><Avatar /></el-icon>
+            {{ userInfo && userInfo.name }}
+            <el-icon><CaretBottom /></el-icon>
           </div>
         </template>
         <div class="nickname">
-          <p>登录名：{{ (userInfo && userInfo.loginUserName) || "" }}</p>
-          <p>昵称：{{ (userInfo && userInfo.nickName) || "" }}</p>
+          <p>登录名：{{ userInfo && userInfo.name }}</p>
+          <p>角色：{{ userInfo && userInfo.role && userInfo.role.name }}</p>
           <el-tag size="small" effect="dark" class="logout" @click="logout">退出</el-tag>
         </div>
       </el-popover>
@@ -101,13 +103,10 @@ onMounted(() => {
 </style>
 <style>
 .popper-user-box {
-  background: url("https://s.yezgea02.com/lingling-h5/static/account-banner-bg.png") 50% 50% no-repeat !important;
-  background-size: cover !important;
   border-radius: 0 !important;
 }
 .popper-user-box .nickname {
   position: relative;
-  color: #ffffff;
 }
 .popper-user-box .nickname .logout {
   position: absolute;
