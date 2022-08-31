@@ -90,19 +90,10 @@ const routes = [
       title: "登录",
       icon: "",
       breadcrumb: false,
-      hidden: true,
     },
+    hidden: true,
   },
-  // {
-  //   path: "/404",
-  //   component: () => import("../views/error/404.vue"),
-  //   hidden: true,
-  // },
-  // {
-  //   path: "/401",
-  //   component: () => import("../views/error/401.vue"),
-  //   hidden: true,
-  // },
+
   {
     path: "/:catchAll(.*)",
     component: () => import("../views/error/404.vue"),

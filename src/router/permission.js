@@ -25,6 +25,7 @@ router.beforeEach(async (to, from, next) => {
             router.addRoute(item);
           });
           next({ ...to, replace: true });
+          
         } catch (error) {
           console.log(error);
           store.dispatch("LogOut").then(() => {

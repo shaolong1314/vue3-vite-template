@@ -16,6 +16,19 @@ export default defineConfig(({ mode }) => {
   console.log(`当前环境为${mode}，api为${_process.VITE_BASE_URL}`);
   console.log("=================================================");
 
+  // 非开发环境采用自动导入
+  const componentsResolvers = [];
+  if (mode == "production") {
+    console.log("生产环境");
+    componentsResolvers.push(
+      // 自动导入组件
+      ElementPlusResolver({
+        // 自动引入修改主题色添加这一行，使用预处理样式
+        importStyle: "sass",
+      })
+    );
+  }
+
   const config = {
     base: "/", // 根目录
     resolve: {
@@ -38,21 +51,10 @@ export default defineConfig(({ mode }) => {
         // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
         imports: ["vue"],
 
-        resolvers: [
-          ElementPlusResolver({
-            // 自动引入修改主题色添加这一行，使用预处理样式，不添加将会导致使用ElMessage、ElNotification等组件时默认的主题色会覆盖自定义的主题色
-            importStyle: "sass",
-          }),
-        ],
+        resolvers: componentsResolvers,
       }),
       Components({
-        resolvers: [
-          // 自动导入组件
-          ElementPlusResolver({
-            // 自动引入修改主题色添加这一行，使用预处理样式
-            importStyle: "sass",
-          }),
-        ],
+        resolvers: componentsResolvers,
       }),
       ElementPlus({
         useSource: true,
@@ -64,6 +66,7 @@ export default defineConfig(({ mode }) => {
         algorithm: "gzip",
         ext: ".gz",
       }),
+      mode == "development" && ElementPlusAllImport(),
     ],
 
     server: {
@@ -94,3 +97,25 @@ export default defineConfig(({ mode }) => {
 
   return config;
 });
+
+// 自定义插件
+function ElementPlusAllImport() {
+  console.log("开发环境");
+  return {
+    name: "elementPlus-all-import",
+    transform(code, id) {
+      // 判断是否在src/main.js文件上
+      if (/\/src\/main.js$/.test(id)) {
+        const name = "ElementPlus ";
+        // 引入element组件和样式
+        const prepend = `import ${name} from 'element-plus'; \n import 'element-plus/dist/index.css';`;
+
+        // 使用use挂载
+        code = code.replace(/(\.mount)/, `.use(${name})$1`);
+
+        return prepend + code;
+      }
+      return code;
+    },
+  };
+}
