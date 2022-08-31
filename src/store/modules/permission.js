@@ -25,7 +25,6 @@ const permission = {
             if (res.data && Array.isArray(res.data)) {
               const menus = trim_async_routes(res.data);
               const asyncRouter = filterAsyncRouter(menus);
-              asyncRouter.push({ path: "/:catchAll(.*)", redirect: "/404", hidden: true });
               commit("SET_ROUTERS", asyncRouter);
               resolve(asyncRouter);
             } else {
