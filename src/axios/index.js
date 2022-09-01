@@ -12,8 +12,8 @@ const service = Axios.create({
   withCredentials: true,
   responseType: "json",
   headers: {
-    "Content-Type": "application/json;charset=UTF-8",
-  },
+    "Content-Type": "application/json;charset=UTF-8"
+  }
 });
 
 // request拦截器
@@ -38,7 +38,7 @@ service.interceptors.response.use(
       MessageBox.confirm("登录状态已过期，您可以继续留在该页面，或者重新登录", "系统提示", {
         confirmButtonText: "重新登录",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         store
           .dispatch("FedLogOut")
@@ -66,14 +66,14 @@ service.interceptors.response.use(
   },
   (error) => {
     console.log("err => " + error.message);
-    let { message } = error;
+    const { message } = error;
     let messageText = undefined;
     if (message == "Network Error") {
       messageText = "后端接口连接异常";
     } else if (message.includes("timeout")) {
       messageText = "系统接口请求超时";
     } else if (message.includes("Request failed with status code")) {
-      let failedCode = message.substr(message.length - 3);
+      const failedCode = message.substr(message.length - 3);
       if (failedCode == 502) {
         // 后台维护页面
       } else {
@@ -96,12 +96,12 @@ export function download(url, params, filename, method = "post", callback) {
     transformRequest: [
       (params) => {
         return tansParams(params);
-      },
+      }
     ],
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/x-www-form-urlencoded"
     },
-    responseType: "blob",
+    responseType: "blob"
   })
     .then((data) => {
       if (callback) {
@@ -140,12 +140,12 @@ function request(config) {
     let url = config.url + "?";
     for (const propName of Object.keys(config.params)) {
       const value = config.params[propName];
-      var part = encodeURIComponent(propName) + "=";
+      const part = encodeURIComponent(propName) + "=";
       if (value !== null && typeof value !== "undefined") {
         if (typeof value === "object") {
           for (const key of Object.keys(value)) {
-            let params = propName + "[" + key + "]";
-            var subPart = encodeURIComponent(params) + "=";
+            const params = propName + "[" + key + "]";
+            const subPart = encodeURIComponent(params) + "=";
             url += subPart + encodeURIComponent(value[key]) + "&";
           }
         } else {
@@ -159,7 +159,11 @@ function request(config) {
   }
 
   if ((config.method == "post" || config.method == "put") && config.data) {
-    if (config && config.headers && (config.headers["content-type"] === "application/x-www-form-urlencoded;charset=UTF-8" || config.headers["Content-Type"] === "application/x-www-form-urlencoded;charset=UTF-8")) {
+    if (
+      config &&
+      config.headers &&
+      (config.headers["content-type"] === "application/x-www-form-urlencoded;charset=UTF-8" || config.headers["Content-Type"] === "application/x-www-form-urlencoded;charset=UTF-8")
+    ) {
       config.data = qs.stringify(config.data);
     }
   }

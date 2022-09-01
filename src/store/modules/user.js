@@ -9,7 +9,7 @@ const user = {
     avatar: "",
     roles: [],
     permissions: [],
-    userInfo: {} /* 用户详细信息 */,
+    userInfo: {} /* 用户详细信息 */
   },
 
   mutations: {
@@ -30,7 +30,7 @@ const user = {
     },
     SET_USER: (state, obj) => {
       state.userInfo = obj;
-    },
+    }
   },
 
   actions: {
@@ -139,8 +139,8 @@ const user = {
         removeToken();
         resolve();
       });
-    },
-  },
+    }
+  }
 };
 
 export const setUserInfo = (res, commit) => {

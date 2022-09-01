@@ -28,10 +28,10 @@ export const config = {
     /**
      * 备案号
      */
-    caseNumber: "",
+    caseNumber: ""
   },
   ELEMENT_PLUS: {
     SIZE: "small",
-    PAGINATION_SIZE: false,
-  },
+    PAGINATION_SIZE: false
+  }
 };

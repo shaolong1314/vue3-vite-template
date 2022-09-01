@@ -5,9 +5,9 @@ export function login(data) {
     url: "backend/publicize/login",
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
-    data,
+    data
   });
 }
 export function logout(data) {
@@ -15,9 +15,9 @@ export function logout(data) {
     url: "/login/logout",
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
-    data,
+    data
   });
 }
 export function getInfo(data) {
@@ -25,9 +25,9 @@ export function getInfo(data) {
     url: "/backend/publicize/getUserInfo",
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
-    data,
+    data
   });
 }
 
@@ -36,8 +36,8 @@ export function getUserMenu(data) {
     url: "/backend/publicize/getMenuInfo",
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
-    data,
+    data
   });
 }

@@ -2,7 +2,7 @@ import store from "~/store";
 
 /**
  * @param {Array} value
- * @returns {Boolean}
+ * @return {Boolean}
  */
 export default function checkPermission(value) {
   if (value && value instanceof Array && value.length > 0) {

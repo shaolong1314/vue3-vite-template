@@ -6,8 +6,8 @@ export function getAdminUserList(data) {
     url: "/backend/manager/finds",
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
-    data,
+    data
   });
 }

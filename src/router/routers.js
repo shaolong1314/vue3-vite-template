@@ -30,10 +30,10 @@ const routes = [
           title: "首页",
           icon: "",
           breadcrumb: true,
-          hidden: false,
-        },
-      },
-    ],
+          hidden: false
+        }
+      }
+    ]
   },
   // {
   //   path: "/sysManage",
@@ -89,16 +89,16 @@ const routes = [
     meta: {
       title: "登录",
       icon: "",
-      breadcrumb: false,
+      breadcrumb: false
     },
-    hidden: true,
+    hidden: true
   },
 
   {
     path: "/:catchAll(.*)",
     component: () => import("../views/error/404.vue"),
-    hidden: true,
-  },
+    hidden: true
+  }
 ];
 
 export default routes;

@@ -5,13 +5,13 @@ import { getListByRole, getMenusList } from "@/api/sysManage/menuManage";
 const permission = {
   state: {
     routers: routes,
-    addRouters: [],
+    addRouters: []
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers;
       state.routers = routes.concat(routers);
-    },
+    }
   },
   actions: {
     generateRoutes({ commit }, asyncRouter) {
@@ -35,8 +35,8 @@ const permission = {
             reject(error);
           });
       });
-    },
-  },
+    }
+  }
 };
 
 export default permission;

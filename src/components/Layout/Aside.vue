@@ -39,9 +39,11 @@ const onRoutes = computed(() => {
             <template v-for="subItem in item.children">
               <template v-if="!subItem.hidden">
                 <el-sub-menu v-if="subItem.children && subItem.children.length > 0" :index="item.path + '/' + subItem.path" :key="subItem.path">
-                  <template #title>{{ subItem.meta && subItem.meta.title }}</template>
+                  <template #title>
+                    {{ subItem.meta && subItem.meta.title }}
+                  </template>
                 </el-sub-menu>
-                <el-menu-item v-else :index="item.path + '/' + subItem.path">
+                <el-menu-item v-else :index="item.path + '/' + subItem.path" :key="item.path + '/' + subItem.path">
                   {{ subItem.meta && subItem.meta.title }}
                 </el-menu-item>
               </template>

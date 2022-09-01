@@ -7,7 +7,7 @@ const loginForm = ref(null);
 const loading = ref(false);
 const ruleForm = reactive({
   username: "",
-  password: "",
+  password: ""
 });
 const store = useStore();
 const router = useRouter();
@@ -15,7 +15,7 @@ const router = useRouter();
 const checked = ref(true);
 const rules = {
   username: [{ required: "true", message: "账户不能为空", trigger: "blur" }],
-  password: [{ required: "true", message: "密码不能为空", trigger: "blur" }],
+  password: [{ required: "true", message: "密码不能为空", trigger: "blur" }]
 };
 
 const route = useRoute();
@@ -29,7 +29,7 @@ const submitForm = () => {
       const user = {
         name: ruleForm.username,
         password: ruleForm.password,
-        type: "username",
+        type: "username"
       };
       loading.value = true;
       store
@@ -67,7 +67,10 @@ const resetForm = () => {
           <el-input type="password" v-model.trim="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
+          <div style="color: #333">
+            登录表示您已同意
+            <a>《服务条款》</a>
+          </div>
           <el-button style="width: 100%" type="primary" @click="submitForm" :loading="loading">立即登录</el-button>
           <el-checkbox v-model="checked" @change="!checked">下次自动登录</el-checkbox>
         </el-form-item>

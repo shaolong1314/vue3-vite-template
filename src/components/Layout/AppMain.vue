@@ -17,7 +17,7 @@ const key = computed(() => {
 });
 
 const keepAliveArr = computed(() => {
-  let arr = [];
+  const arr = [];
   const setKeepLive = (routers) => {
     routers.forEach((route, index) => {
       if (route && route.meta && route.meta.keepAlive) {

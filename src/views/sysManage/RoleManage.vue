@@ -29,7 +29,7 @@ const currentRole = ref(true);
           <el-button type="primary">新增</el-button>
         </div>
         <div v-show="currentRole">
-          <span style="margin: 0 10px"> 当前角色: 超级管理员 </span>
+          <span style="margin: 0 10px">当前角色: 超级管理员</span>
           <!-- <el-button plain @click="(currentRole = null), $refs.menu.setCheckedKeys([])"> 清空 </el-button> -->
         </div>
       </div>
@@ -41,11 +41,20 @@ const currentRole = ref(true);
               <el-table :data="tableData" ref="contentTable" height="500">
                 <el-table-column label="角色名称" prop="name" />
                 <el-table-column :show-overflow-tooltip="true" label="说明" prop="remark" />
-                <el-table-column label="创建时间" width="150"> </el-table-column>
-                <el-table-column label="操作" width="200px" align="center" fixed="right"> </el-table-column>
+                <el-table-column label="创建时间" width="150"></el-table-column>
+                <el-table-column label="操作" width="200px" align="center" fixed="right"></el-table-column>
               </el-table>
               <!--分页组件-->
-              <el-pagination background :total="pagination.total" :current-page="pagination.page" layout="total, prev, pager, next, sizes" :page-sizes="pagination.sizes" :page-size="pagination.pageSize" @size-change="sizeChange" @current-change="currentChange" />
+              <el-pagination
+                background
+                :total="pagination.total"
+                :current-page="pagination.page"
+                layout="total, prev, pager, next, sizes"
+                :page-sizes="pagination.sizes"
+                :page-size="pagination.pageSize"
+                @size-change="sizeChange"
+                @current-change="currentChange"
+              />
             </el-card>
           </el-col>
           <!-- 授权 -->

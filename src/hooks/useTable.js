@@ -6,7 +6,7 @@ export default function useTable(getList) {
     total: 0,
     page: 1,
     pageSize: 10,
-    sizes: [10, 20, 30, 40, 50],
+    sizes: [10, 20, 30, 40, 50]
   });
 
   // 返回数据
@@ -23,18 +23,18 @@ export default function useTable(getList) {
     });
   };
 
-  //引入生命周期，执行搜索
+  // 引入生命周期，执行搜索
   onMounted(() => {
     getTableList({ ...searchData, ...pagination });
   });
 
-  //调整每一页多少行数据
+  // 调整每一页多少行数据
   const sizeChange = (val) => {
     searchState.pageNo = 1;
     searchState.pageSize = val;
     getTableList(searchState);
   };
-  //翻页的
+  // 翻页的
   const currentChange = (val) => {
     searchState.pageNo = val;
     getTableList(searchState);
@@ -64,6 +64,6 @@ export default function useTable(getList) {
     sizeChange,
     currentChange,
     onReset,
-    onSearch,
+    onSearch
   };
 }

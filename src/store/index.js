@@ -7,7 +7,7 @@ import { getters } from "./getters";
 export const store = createStore({
   modules: {
     user,
-    permission,
+    permission
   },
-  getters,
+  getters
 });

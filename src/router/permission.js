@@ -25,13 +25,13 @@ router.beforeEach(async (to, from, next) => {
             router.addRoute(item);
           });
           next({ ...to, replace: true });
-          
         } catch (error) {
           console.log(error);
-          store.dispatch("LogOut").then(() => {
-            ElMessage.error(err);
-            next({ path: "/" });
-          });
+          next({ path: "/login" });
+          // store.dispatch("LogOut").then(() => {
+          //   ElMessage.error(err);
+          //   next({ path: "/login" });
+          // });
         }
       } else {
         next();

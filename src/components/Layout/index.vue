@@ -8,8 +8,8 @@ const state = reactive({
   showMenu: true,
   currentPath: "/index",
   count: {
-    number: 1,
-  },
+    number: 1
+  }
 });
 </script>
 

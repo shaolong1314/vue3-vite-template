@@ -1,7 +1,7 @@
 // 循环递归数组
 export function trim_async_routes(routes) {
   const cloneData = JSON.parse(JSON.stringify(routes)); // 对源数据深度克隆
-  let trim_routes = [];
+  const trim_routes = [];
   cloneData.forEach((item) => {
     // 目录和菜单进行递归
     if ([1, 2].includes(item.type)) {
@@ -12,7 +12,7 @@ export function trim_async_routes(routes) {
         iframe: item.is_outsize,
         meta: { url: item.is_outsize ? item.component_url : "", title: item.name, icon: item.icon, cache: item.is_cache },
         name: item.component_name,
-        path: !item.parent_id ? "/" + item.url : item.url,
+        path: !item.parent_id ? "/" + item.url : item.url
       };
       if (item.children && item.children.length > 0) {
         obj.children = trim_async_routes(item.children);
@@ -98,7 +98,7 @@ export const parseTime = (time, pattern) => {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay(),
+    a: date.getDay()
   };
   const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key];
@@ -112,11 +112,4 @@ export const parseTime = (time, pattern) => {
     return value || 0;
   });
   return time_str;
-};
-
-// 表单重置
-export const resetForm = (refName) => {
-  if (this.$refs[refName]) {
-    this.$refs[refName].resetFields();
-  }
 };

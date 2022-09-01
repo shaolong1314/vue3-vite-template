@@ -175,7 +175,7 @@ export const validateCode = (rule, value, callback) => {
 
 // 纯数字校验
 export const validateNumber = (rule, value, callback) => {
-  let numberReg = /^\d+$|^\d+[.]?\d+$/;
+  const numberReg = /^\d+$|^\d+[.]?\d+$/;
   if (value !== "") {
     if (!numberReg.test(value)) {
       callback(new Error("请输入数字"));

@@ -5,8 +5,6 @@ const number = ref(0);
 setTimeout(() => {
   number.value = 10;
 }, 1000);
-
-
 </script>
 <template>
   <div class="page-menu">
@@ -16,4 +14,3 @@ setTimeout(() => {
   </div>
 </template>
 <style lang="scss" scoped></style>
-

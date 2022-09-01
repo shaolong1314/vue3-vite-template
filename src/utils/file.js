@@ -3,7 +3,7 @@ const mime_list = [
   {
     str: "apk",
     reg: /(\.apk)$/,
-    mime: "application/vnd.android.package-archive",
+    mime: "application/vnd.android.package-archive"
   },
   { str: "asf", reg: /(\.asf)$/, mime: "video/x-ms-asf" },
   { str: "avi", reg: /(\.avi)$/, mime: "video/x-msvideo" },
@@ -17,13 +17,13 @@ const mime_list = [
   {
     str: "docx",
     reg: /(\.docx)$/,
-    mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   },
   { str: "xls", reg: /(\.xls)$/, mime: "application/vnd.ms-excel" },
   {
     str: "xlsx",
     reg: /(\.xlsx)$/,
-    mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   },
   { str: "exe", reg: /(\.exe)$/, mime: "application/octet-stream" },
   { str: "gif", reg: /(\.gif)$/, mime: "image/gif" },
@@ -63,7 +63,7 @@ const mime_list = [
   {
     str: "pptx",
     reg: /(\.pptx)$/,
-    mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation"
   },
   { str: "prop", reg: /(\.prop)$/, mime: "text/plain" },
   { str: "rc", reg: /(\.rc)$/, mime: "text/plain" },
@@ -80,21 +80,21 @@ const mime_list = [
   { str: "xml", reg: /(\.xml)$/, mime: "text/plain" },
   { str: "z", reg: /(\.z)$/, mime: "application/x-compress" },
   { str: "zip", reg: /(\.zip)$/, mime: "application/x-zip-compressed" },
-  { str: "", reg: / /, mime: "*/*" },
+  { str: "", reg: / /, mime: "*/*" }
 ];
-//blob转file
+// blob转file
 export const blobToFile = (blob, fileName) => {
   return new window.File([blob], fileName, {
-    type: blob.type,
+    type: blob.type
   });
 };
 export const dataURLtoFile = (dataurl, filename) => {
-  //将base64转换为文件
-  var arr = dataurl.split(","),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
+  // 将base64转换为文件
+  const arr = dataurl.split(",");
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
   }
@@ -102,29 +102,29 @@ export const dataURLtoFile = (dataurl, filename) => {
 };
 
 export const fileToBase64 = function (file, callback) {
-  var r = new FileReader();
-  var base64 = "";
+  const r = new FileReader();
+  let base64 = "";
   // 转成base64
   r.onload = function () {
     base64 = r.result;
     callback(base64);
   };
-  r.readAsDataURL(file); //转成Base64格式
+  r.readAsDataURL(file); // 转成Base64格式
 };
 
 export const blobToDataURL = function (blob, callback) {
-  let a = new FileReader();
+  const a = new FileReader();
   a.onload = function (e) {
     callback(e.target.result);
   };
   a.readAsDataURL(blob);
 };
 export const dataURLtoBlob = function (dataurl) {
-  var arr = dataurl.split(","),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
+  const arr = dataurl.split(",");
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
   }
@@ -132,26 +132,26 @@ export const dataURLtoBlob = function (dataurl) {
 };
 
 export const getBase64Image = (img) => {
-  var canvas = document.createElement("canvas");
+  const canvas = document.createElement("canvas");
   canvas.width = img.width;
   canvas.height = img.height;
-  var ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
   ctx.drawImage(img, 0, 0, img.width, img.height);
-  var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
-  var dataURL = canvas.toDataURL("image/" + ext);
+  const ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+  const dataURL = canvas.toDataURL("image/" + ext);
   return {
     dataURL: dataURL,
-    type: "image/" + ext,
+    type: "image/" + ext
   };
 };
 
 export const absoluteUrlToBase64 = (fileUrl) => {
   return new Promise((res, rej) => {
-    var image = new Image();
+    const image = new Image();
     image.crossOrigin = "";
     image.src = fileUrl;
     image.onload = () => {
-      var base64 = getBase64Image(image);
+      const base64 = getBase64Image(image);
       res(base64);
     };
   }).then();
@@ -215,8 +215,8 @@ export const getFileSuffix = (file) => {
 
 export const fileToBlob = (file, callback) => {
   const type = file.type;
-  let reader = new FileReader();
-  let rs = reader.readAsArrayBuffer(file);
+  const reader = new FileReader();
+  const rs = reader.readAsArrayBuffer(file);
   let blob = null;
   reader.onload = (event) => {
     if (typeof event.target.result === "object") {
@@ -231,13 +231,13 @@ export const fileToBlob = (file, callback) => {
 /**
  *
  * @param {*} file 视频文件
- * @returns 视频详细信息
+ * @return 视频详细信息
  */
 export const getVideoInfo = (file) => {
   return new Promise((res, rej) => {
     fileToBlob(file, (blob) => {
-      let videoUrl = URL.createObjectURL(blob);
-      let video = document.createElement("video");
+      const videoUrl = URL.createObjectURL(blob);
+      const video = document.createElement("video");
       video.src = videoUrl;
       video.id = file.uid;
       video.style.display = "none";

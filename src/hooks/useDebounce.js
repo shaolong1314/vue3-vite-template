@@ -4,10 +4,12 @@ import { ref, watch } from "vue";
 export function useDebounce(cb, delay = 100) {
   const timer = ref(null);
 
-  let handler = function () {
+  const handler = function () {
     clearTimeout(timer.value);
-    let args = arguments,
-      context = this;
+    // eslint-disable-next-line prefer-rest-params
+    const args = arguments;
+    // eslint-disable-next-line no-invalid-this
+    const context = this;
     timer.value = setTimeout(() => {
       cb.apply(context, args);
     }, delay);
@@ -20,7 +22,7 @@ export function useDebounce(cb, delay = 100) {
 
   return {
     handler,
-    cancel,
+    cancel
   };
 }
 
@@ -36,6 +38,6 @@ export function useAssociateSearch() {
   watch(keyword, debounce(search, 1000)); // 去抖，停止操作1秒后再请求
 
   return {
-    keyword,
+    keyword
   };
 }

@@ -7,6 +7,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import ElementPlus from "unplugin-element-plus/vite";
 import path from "path";
 import viteCompression from "vite-plugin-compression";
+import eslintPlugin from "vite-plugin-eslint";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -24,7 +25,7 @@ export default defineConfig(({ mode }) => {
       // 自动导入组件
       ElementPlusResolver({
         // 自动引入修改主题色添加这一行，使用预处理样式
-        importStyle: "sass",
+        importStyle: "sass"
       })
     );
   }
@@ -34,48 +35,53 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         "~/": `${path.resolve(__dirname, "src")}/`,
-        "@/": `${path.resolve(__dirname, "src")}/`,
-      },
+        "@/": `${path.resolve(__dirname, "src")}/`
+      }
     },
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "~/styles/element-ui.scss" as *;`,
-        },
-      },
+          additionalData: `@use "~/styles/element-ui.scss" as *;`
+        }
+      }
     },
     plugins: [
       vue(),
+      eslintPlugin({
+        include: ["src/**/*.js", "src/**/*.vue"],
+        exclude: ["./node_modules/**"],
+        cache: false
+      }),
       AutoImport({
         // Auto import functions from Vue, e.g. ref, reactive, toRef...
         // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
         imports: ["vue"],
 
-        resolvers: componentsResolvers,
+        resolvers: componentsResolvers
       }),
       Components({
-        resolvers: componentsResolvers,
+        resolvers: componentsResolvers
       }),
       ElementPlus({
-        useSource: true,
+        useSource: true
       }),
       viteCompression({
         verbose: true,
         disable: false,
         threshold: 10240,
         algorithm: "gzip",
-        ext: ".gz",
+        ext: ".gz"
       }),
-      mode == "development" && ElementPlusAllImport(),
+      mode == "development" && ElementPlusAllImport()
     ],
 
     server: {
       proxy: {
-        "/api": { target: _process.VITE_BASE_URL, changeOrigin: true, rewrite: (path) => path.replace(/^\/api/, "") },
+        "/api": { target: _process.VITE_BASE_URL, changeOrigin: true, rewrite: (path) => path.replace(/^\/api/, "") }
       },
       hmr: true,
       port: 8080,
-      open: true,
+      open: true
     },
 
     build: {
@@ -85,14 +91,14 @@ export default defineConfig(({ mode }) => {
           manualChunks: {
             index: ["./src/views/Index.vue"],
             login: ["./src/views/Login.vue"],
-            error: ["./src/views/error/404.vue", "./src/views/error/401.vue"],
+            error: ["./src/views/error/404.vue", "./src/views/error/401.vue"]
           },
           chunkFileNames: "static/js/[name]-[hash].js",
           entryFileNames: "static/js/[name]-[hash].js",
-          assetFileNames: "static/[ext]/[name]-[hash].[ext]",
-        },
-      },
-    },
+          assetFileNames: "static/[ext]/[name]-[hash].[ext]"
+        }
+      }
+    }
   };
 
   return config;
@@ -116,6 +122,6 @@ function ElementPlusAllImport() {
         return prepend + code;
       }
       return code;
-    },
+    }
   };
 }

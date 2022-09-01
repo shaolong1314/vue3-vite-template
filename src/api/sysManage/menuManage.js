@@ -5,7 +5,7 @@ export function getMenusList(data) {
   return request({
     url: "/backend/menu/finds",
     method: "post",
-    data,
+    data
   });
 }
 
@@ -14,7 +14,7 @@ export function getListByRole(data) {
   return request({
     url: "/backend/publicize/getMenuInfo",
     method: "post",
-    data,
+    data
   });
 }
 
@@ -24,9 +24,8 @@ export function getMenusDetails(data) {
     url: "/backend/menu/detail",
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
-    data,
+    data
   });
 }
-

@@ -32,14 +32,22 @@ const onDelete = () => {};
         <el-button type="primary" :size="config.ELEMENT_PLUS.size" @click="onAdd()">新增菜单</el-button>
       </div>
       <div class="content-table">
-        <el-table :data="tableData" ref="contentTable" row-key="menu_id" :default-expand-all="expand" :size="config.ELEMENT_PLUS.size" :expand-row-keys="expandRow" :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
+        <el-table
+          :data="tableData"
+          ref="contentTable"
+          row-key="menu_id"
+          :default-expand-all="expand"
+          :size="config.ELEMENT_PLUS.size"
+          :expand-row-keys="expandRow"
+          :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        >
           <el-table-column :show-overflow-tooltip="true" label="菜单名称" prop="name" />
           <el-table-column label="图标" align="center" width="60">
             <!-- <template #default="scope">
               <i :class="scope.row.icon"></i>
             </template> -->
           </el-table-column>
-          <el-table-column label="排序" prop="sort" align="center" width="60"> </el-table-column>
+          <el-table-column label="排序" prop="sort" align="center" width="60"></el-table-column>
           <el-table-column :show-overflow-tooltip="true" prop="url" label="路由地址" />
           <el-table-column :show-overflow-tooltip="true" label="权限标识">
             <template #default="scope">
