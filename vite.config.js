@@ -23,6 +23,7 @@ export default defineConfig(({ mode }) => {
     console.log("生产环境");
     componentsResolvers.push(
       // 自动导入组件
+      // eslint-disable-next-line new-cap
       ElementPlusResolver({
         // 自动引入修改主题色添加这一行，使用预处理样式
         importStyle: "sass"
@@ -52,6 +53,7 @@ export default defineConfig(({ mode }) => {
         exclude: ["./node_modules/**"],
         cache: false
       }),
+      // eslint-disable-next-line new-cap
       AutoImport({
         // Auto import functions from Vue, e.g. ref, reactive, toRef...
         // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
@@ -59,9 +61,11 @@ export default defineConfig(({ mode }) => {
 
         resolvers: componentsResolvers
       }),
+      // eslint-disable-next-line new-cap
       Components({
         resolvers: componentsResolvers
       }),
+      // eslint-disable-next-line new-cap
       ElementPlus({
         useSource: true
       }),
@@ -72,6 +76,7 @@ export default defineConfig(({ mode }) => {
         algorithm: "gzip",
         ext: ".gz"
       }),
+      // eslint-disable-next-line new-cap
       mode == "development" && ElementPlusAllImport()
     ],
 
