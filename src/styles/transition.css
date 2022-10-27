@@ -1,62 +1,7 @@
-
-/*fade 忽隐忽现 */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.28s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-/*fade-transform  左进右出*/
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: all 0.4s ease;
-}
-.fade-transform-enter-from {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-.fade-transform-leave-to {
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-/*fade-in  上进下出*/
-.fade-in-leave-active,
-.fade-in-enter-active {
-  transition: all .4s ease;
-}
-.fade-in-enter {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-.fade-in-leave-to {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-/*pop-in  大进小出*/
-.pop-in-leave-active,
-.pop-in-enter-active {
-  transition: all .5s ease;
-}
-.pop-in-enter {
-  opacity: 0;
-  transform: scale3d(0.5, 0.5, 0.5);
-}
-.pop-in-leave-to {
-  opacity: 0;
-  transform: scale3d(0.5, 0.5, 0.5);
-}
-
-
-/*breadcrumb*/
+/* 面包屑转场动画 */
 .breadcrumb-enter-active,
 .breadcrumb-leave-active {
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 
 .breadcrumb-enter,
@@ -67,9 +12,40 @@
 }
 
 .breadcrumb-move {
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .breadcrumb-leave-active {
   position: absolute;
+}
+
+/* 路由转场动画 */
+
+.routerSlide-enter-active {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  transition: all 0.4s ease-in-out 0.2s;
+}
+.routerSlide-leave-active {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  transition: all 0.4s ease-in-out;
+}
+.routerSlide-enter-to {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+.routerSlide-enter-from {
+  transform: translate3d(-5%, 0, 0);
+  opacity: 0;
+}
+.routerSlide-leave-to {
+  transform: translate3d(5%, 0, 0);
+  opacity: 0;
+}
+.routerSlide-leave-from {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
 }

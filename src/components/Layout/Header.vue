@@ -1,7 +1,8 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { logout } from "@/api/login";
 
 const store = useStore();
 
@@ -9,9 +10,7 @@ const userInfo = computed(() => {
   return store.getters.userInfo;
 });
 
-const name = "admin";
-
-const logout = () => {};
+const router = useRouter();
 
 const route = useRoute();
 
@@ -23,7 +22,7 @@ const getBreadcrumb = () => {
   const first = matched[0];
 
   if (first && first.name !== "Index") {
-    matched = [{ path: "/index", meta: { title: "首页" } }].concat(matched);
+    matched = [{ path: "/index", name: "Index", meta: { title: "首页" } }].concat(matched);
   }
   levelList.value = matched;
 };
@@ -35,7 +34,19 @@ watch(
   }
 );
 
-const handleLink = () => {};
+const handleLink = () => {
+  router.replace("/index");
+};
+const onCommand = async (name) => {
+  switch (name) {
+    case "my":
+      router.push("/my/info");
+      break;
+    case "exit":
+      logout();
+      break;
+  }
+};
 
 onMounted(() => {
   getBreadcrumb();
@@ -47,28 +58,41 @@ onMounted(() => {
     <div class="left">
       <el-breadcrumb class="app-breadcrumb" separator="/">
         <transition-group name="breadcrumb">
-          <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
-            <span v-if="item.redirect === 'noredirect' || index == levelList.length - 1" class="no-redirect">{{ item.meta.title }}</span>
-            <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+          <el-breadcrumb-item v-for="item in levelList" :key="item.path">
+            <span v-if="item.name != 'Index'" class="no-redirect">{{ item.meta.title }}</span>
+            <a v-else @click.prevent="handleLink(item)" style="color: var(--theme-color); font-weight: 700">{{ item.meta.title }}</a>
           </el-breadcrumb-item>
         </transition-group>
       </el-breadcrumb>
     </div>
     <div class="right">
-      <el-popover placement="bottom" :width="320" trigger="click" popper-class="popper-user-box">
-        <template #reference>
-          <div class="author">
-            <el-icon><Avatar /></el-icon>
-            {{ userInfo && userInfo.name }}
-            <el-icon><CaretBottom /></el-icon>
-          </div>
-        </template>
-        <div class="nickname">
-          <p>登录名：{{ userInfo && userInfo.name }}</p>
-          <p>角色：{{ userInfo && userInfo.role && userInfo.role.name }}</p>
-          <el-tag size="small" effect="dark" class="logout" @click="logout">退出</el-tag>
-        </div>
-      </el-popover>
+      <!-- 工具栏 -->
+      <ul class="app-topbar__tools">
+        <li>
+          <el-icon><BellFilled /></el-icon>
+        </li>
+      </ul>
+      <!-- 用户信息 -->
+      <div class="app-topbar__user">
+        <el-dropdown trigger="click" hide-on-click @command="onCommand">
+          <span class="el-dropdown-link">
+            <span class="name">admin</span>
+            <!-- <img class="avatar" :src="user.info.headImg" /> -->
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="my">
+                <i class="cl-iconfont cl-icon-user"></i>
+                <span>个人中心</span>
+              </el-dropdown-item>
+              <el-dropdown-item command="exit">
+                <i class="cl-iconfont cl-icon-exit"></i>
+                <span>退出</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
     </div>
   </div>
 </template>
@@ -77,41 +101,62 @@ onMounted(() => {
 @import "~/styles/transition.css";
 </style>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
-  height: 50px;
+  height: 100%;
   border-bottom: 1px solid #e9e9e9;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-}
-.el-icon-back {
-  border: 1px solid #e9e9e9;
-  padding: 4px;
-  border-radius: 50px;
-  margin-right: 10px;
-}
-.right > div > .icon {
-  font-size: 18px;
-  margin-right: 6px;
-}
-.author {
-  margin-left: 10px;
-  cursor: pointer;
-}
-</style>
-<style>
-.popper-user-box {
-  border-radius: 0 !important;
-}
-.popper-user-box .nickname {
-  position: relative;
-}
-.popper-user-box .nickname .logout {
-  position: absolute;
-  right: 0;
-  top: 0;
-  cursor: pointer;
+  .right {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    .app-topbar__tools,
+    .app-topbar__user {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .app-topbar__tools {
+      margin-right: 20px;
+      li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        height: 45px;
+        min-width: 45px;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+      li:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+    .app-topbar__user {
+      margin-right: 10px;
+      cursor: pointer;
+      .el-dropdown-link {
+        display: flex;
+        align-items: center;
+        .avatar {
+          height: 32px;
+          width: 32px;
+          border-radius: 32px;
+        }
+        .name {
+          white-space: nowrap;
+          margin-right: 15px;
+          font-size: 18px;
+        }
+      }
+      .el-icon-arrow-down {
+        margin-left: 10px;
+      }
+    }
+  }
 }
 </style>

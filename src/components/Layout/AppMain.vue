@@ -1,9 +1,13 @@
+<!--
+ * @Author: shaolong
+ * @Date: 2022-08-29 09:29:49
+ * @LastEditors: shaolong
+ * @LastEditTime: 2022-10-27 14:29:37
+ * @Description: 
+-->
 <script setup>
 import { computed } from "vue";
-import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-
-// import routes from "~/router/routers";
 
 const store = useStore();
 
@@ -11,16 +15,11 @@ const _routes = computed(() => {
   return store.state.permission.routers;
 });
 
-const route = useRoute();
-const key = computed(() => {
-  return route.fullPath;
-});
-
 const keepAliveArr = computed(() => {
   const arr = [];
   const setKeepLive = (routers) => {
     routers.forEach((route, index) => {
-      if (route && route.meta && route.meta.keepAlive) {
+      if (route && route.keepAlive) {
         arr.push(route.name);
       }
       if (route.children && route.children.length > 0) {
@@ -36,7 +35,7 @@ const keepAliveArr = computed(() => {
 <template>
   <div class="app-main">
     <router-view v-slot="{ Component }">
-      <Transition name="fade-transform" mode="out-in">
+      <Transition name="routerSlide">
         <keep-alive :include="keepAliveArr">
           <component :is="Component" />
         </keep-alive>
@@ -50,10 +49,9 @@ const keepAliveArr = computed(() => {
 
 .app-main {
   box-sizing: border-box;
-  overflow-x: hidden;
   min-width: 1200px;
   width: 100%;
   color: #000000;
-  padding: 10px;
+  position: relative;
 }
 </style>

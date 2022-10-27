@@ -1,3 +1,10 @@
+/*
+ * @Author: shaolong
+ * @Date: 2022-08-29 09:29:49
+ * @LastEditors: shaolong
+ * @LastEditTime: 2022-10-27 17:03:04
+ * @Description:
+ */
 /**
  * Note: 路由配置项
  *
@@ -5,13 +12,14 @@
  *                                // 只有一个时，会将那个子路由当做根路由显示在侧边栏--如首页
  * redirect: noRedirect           // 当设置 noRedirect 的时候该路由在面包屑导航中不可被点击
  * name:'router-name'             // 设定路由的名字，规则：跟文件名字保持一致；缓存路由必须设置
- * meta : {
-    title: 'title'                // 设置该路由在侧边栏和面包屑中展示的名字
-    icon: 'svg-name'              // 设置该路由的图标，对应路径src/assets/icons/svg
-    breadcrumb: false             // 如果设置为false，则不会在breadcrumb面包屑中显示
-    hidden: true                  // true为不显示侧边栏
-    keepAlive: true               // 是否开启缓存
-  }
+   breadcrumb: false             // 如果设置为false，则不会在breadcrumb面包屑中显示
+   hidden: true                  // true为不显示侧边栏
+   keepAlive: true               // 是否开启缓存
+   meta: {
+      title: 'title'                // 设置该路由在侧边栏和面包屑中展示的名字
+      icon: 'svg-name'              // 设置该路由的图标，对应路径src/assets/icons/svg
+   }
+  
  */
 
 import Layout from "~/components/Layout/index.vue";
@@ -26,72 +34,24 @@ const routes = [
         path: "index",
         name: "Index",
         component: () => import("../views/Index.vue"),
+        breadcrumb: true,
+        hidden: false,
         meta: {
           title: "首页",
-          icon: "",
-          breadcrumb: true,
-          hidden: false
+          icon: "HomeFilled"
         }
       }
     ]
   },
-  // {
-  //   path: "/sysManage",
-  //   component: Layout,
-  //   meta: {
-  //     title: "系统管理",
-  //     icon: "",
-  //     breadcrumb: true,
-  //     hidden: false,
-  //   },
-  //   children: [
-  //     {
-  //       path: "user",
-  //       name: "UserManage",
-  //       component: () => import(/* webpackChunkName: "UserManage" */ "../views/sysManage/UserManage.vue"),
-  //       meta: {
-  //         title: "用户管理",
-  //         icon: "",
-  //         breadcrumb: true,
-  //         hidden: false,
-  //         keepAlive: false,
-  //       },
-  //     },
-  //     {
-  //       path: "menu",
-  //       name: "MenuManage",
-  //       component: () => import(/* webpackChunkName: "MenuManage" */ "../views/sysManage/MenuManage.vue"),
-  //       meta: {
-  //         title: "菜单管理",
-  //         icon: "",
-  //         breadcrumb: true,
-  //         hidden: false,
-  //         keepAlive: true,
-  //       },
-  //     },
-  //     {
-  //       path: "role",
-  //       name: "RoleManage",
-  //       component: () => import(/* webpackChunkName: "RoleManage" */ "../views/sysManage/RoleManage.vue"),
-  //       meta: {
-  //         title: "角色管理",
-  //         icon: "",
-  //         breadcrumb: true,
-  //         hidden: false,
-  //         keepAlive: false,
-  //       },
-  //     },
-  //   ],
-  // },
   {
     path: "/login",
     component: () => import("../views/Login.vue"),
+    breadcrumb: false,
+    hidden: true,
     meta: {
-      title: "登录",
-      icon: "",
-      breadcrumb: false
-    },
-    hidden: true
+      title: "登录页",
+      icon: ""
+    }
   },
 
   {

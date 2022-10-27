@@ -6,13 +6,13 @@ export function trim_async_routes(routes) {
     // 目录和菜单进行递归
     if ([1, 2].includes(item.type)) {
       const obj = {
-        component: item.component_url ? item.component_url : "Layout",
-        hidden: item.status == 1 ? false : true,
-        id: item.menu_id,
-        iframe: item.is_outsize,
-        meta: { url: item.is_outsize ? item.component_url : "", title: item.name, icon: item.icon, cache: item.is_cache },
-        name: item.component_name,
-        path: !item.parent_id ? "/" + item.url : item.url
+        component: item.component ? item.component : "Layout",
+        hidden: item.hidden,
+        id: item.id,
+        keepAlive: item.keepAlive,
+        name: item.name,
+        path: !item.parentId ? "/" + item.url : item.url,
+        meta: { title: item.title, icon: item.icon }
       };
       if (item.children && item.children.length > 0) {
         obj.children = trim_async_routes(item.children);
@@ -30,9 +30,7 @@ export const filterAsyncRouter = (routers) => {
   // 遍历后台传来的路由字符串，转换为组件对象
   const accessedRouters = routers.filter((router) => {
     if (router.component) {
-      if (router.iframe) {
-        router.component = iFrame;
-      } else if (router.component === "Layout") {
+      if (router.component === "Layout") {
         // Layout组件特殊处理
         router.component = Layout;
       } else if (router.component === "Layout2") {

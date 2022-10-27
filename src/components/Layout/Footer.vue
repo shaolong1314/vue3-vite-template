@@ -1,3 +1,10 @@
+<!--
+ * @Author: shaolong
+ * @Date: 2022-08-24 16:14:16
+ * @LastEditors: shaolong
+ * @LastEditTime: 2022-10-27 14:11:57
+ * @Description: layout底部模块
+-->
 <template>
   <div class="footer">
     <div class="left">Your Copyright.</div>
@@ -15,7 +22,7 @@ export default {
 
 <style scoped>
 .footer {
-  height: 50px;
+  height: 100%;
   border-top: 1px solid #e9e9e9;
   display: flex;
   justify-content: space-between;

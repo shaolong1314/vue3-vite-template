@@ -1,10 +1,17 @@
+/*
+ * @Author: shaolong
+ * @Date: 2022-08-29 09:29:49
+ * @LastEditors: shaolong
+ * @LastEditTime: 2022-10-27 15:08:16
+ * @Description: 管理异步路由store
+ */
 import routes from "~/router/routers";
-import { trim_async_routes, filterAsyncRouter, loadView } from "~/utils/format.js";
-import { getListByRole, getMenusList } from "@/api/sysManage/menuManage";
+import { trim_async_routes, filterAsyncRouter } from "~/utils/format.js";
+import { getListByRole } from "@/api/sysManage/menuManage";
 
 const permission = {
   state: {
-    routers: routes,
+    routers: [],
     addRouters: []
   },
   mutations: {
@@ -32,7 +39,7 @@ const permission = {
             }
           })
           .catch((err) => {
-            reject(error);
+            reject(err);
           });
       });
     }

@@ -2,6 +2,7 @@
 import { computed, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { getMenusList } from "@/api/sysManage/menuManage";
 
 const loginForm = ref(null);
 const loading = ref(false);
@@ -48,6 +49,12 @@ const submitForm = () => {
 };
 const resetForm = () => {
   loginForm.value.resetFields();
+};
+
+const handleTest = () => {
+  getMenusList().then((res) => {
+    console.log(res);
+  });
 };
 </script>
 

@@ -1,4 +1,4 @@
-import { login, logout, getInfo, getUserMenu } from "@/api/login";
+import { login, logout, getInfo } from "@/api/login";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 import { ElMessage } from "element-plus";
 
@@ -54,8 +54,8 @@ const user = {
         if (result) {
           const { code } = result;
           if (code == 200) {
-            setToken(result.data);
-            commit("SET_TOKEN", result.data);
+            setToken(result.data.token);
+            commit("SET_TOKEN", result.data.token);
             resolve(result);
           } else if (code == 1007) {
             ElMessage.error("用户已被停用");
@@ -81,14 +81,14 @@ const user = {
         getInfo(state.token)
           .then((res) => {
             if (res && res.code == 200) {
-              const result_data = res.data;
-              if (result_data.role && result_data.role.role_menu) {
-                result_data.roles = result_data.role.role_menu.map((item) => {
+              const _result = res.data;
+              if (_result.role && _result.role.role_menu) {
+                _result.roles = _result.role.role_menu.map((item) => {
                   return item.menu && item.menu.permission;
                 });
               }
-              setUserInfo(result_data, commit);
-              resolve(result_data);
+              setUserInfo(_result, commit);
+              resolve(_result);
             }
           })
           .catch((error) => {
@@ -114,7 +114,7 @@ const user = {
     // 退出系统
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token)
+        logout()
           .then(() => {
             commit("SET_TOKEN", "");
             commit("SET_ROLES", []);
@@ -130,26 +130,16 @@ const user = {
             reject(error);
           });
       });
-    },
-
-    // 前端 登出
-    FedLogOut({ commit }) {
-      return new Promise((resolve) => {
-        commit("SET_TOKEN", "");
-        removeToken();
-        resolve();
-      });
     }
   }
 };
 
 export const setUserInfo = (res, commit) => {
-  // console.log(res);
   // 如果没有任何权限，则赋予一个默认的权限，避免请求死循环
-  if (res.roles.length === 0) {
+  if (res.roleMenu.length === 0) {
     commit("SET_ROLES", ["ROLE_SYSTEM_DEFAULT"]);
   } else {
-    commit("SET_ROLES", res.roles);
+    commit("SET_ROLES", res.roleMenu);
   }
   commit("SET_USER", res);
 };

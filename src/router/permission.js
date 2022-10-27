@@ -1,3 +1,10 @@
+/*
+ * @Author: shaolong
+ * @Date: 2022-08-29 09:29:49
+ * @LastEditors: shaolong
+ * @LastEditTime: 2022-10-27 11:40:49
+ * @Description:
+ */
 import router from "./index.js";
 import { store } from "../store";
 import { ElMessage } from "element-plus";
@@ -28,10 +35,10 @@ router.beforeEach(async (to, from, next) => {
         } catch (error) {
           console.log(error);
           next({ path: "/login" });
-          // store.dispatch("LogOut").then(() => {
-          //   ElMessage.error(err);
-          //   next({ path: "/login" });
-          // });
+          store.dispatch("LogOut").then(() => {
+            ElMessage.error(err);
+            next({ path: "/login" });
+          });
         }
       } else {
         next();
