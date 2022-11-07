@@ -43,7 +43,8 @@ const onCommand = async (name) => {
       router.push("/my/info");
       break;
     case "exit":
-      logout();
+      await store.dispatch("LogOut");
+      router.replace("/login");
       break;
   }
 };
@@ -77,16 +78,17 @@ onMounted(() => {
         <el-dropdown trigger="click" hide-on-click @command="onCommand">
           <span class="el-dropdown-link">
             <span class="name">admin</span>
-            <!-- <img class="avatar" :src="user.info.headImg" /> -->
+            <img class="avatar" :src="userInfo.avatar" v-if="userInfo.avatar" />
+            <el-icon v-else><Avatar /></el-icon>
           </span>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="my">
-                <i class="cl-iconfont cl-icon-user"></i>
+                <el-icon><User /></el-icon>
                 <span>个人中心</span>
               </el-dropdown-item>
               <el-dropdown-item command="exit">
-                <i class="cl-iconfont cl-icon-exit"></i>
+                <el-icon><SwitchButton /></el-icon>
                 <span>退出</span>
               </el-dropdown-item>
             </el-dropdown-menu>

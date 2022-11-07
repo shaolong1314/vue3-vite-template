@@ -63,25 +63,22 @@ const handleTest = () => {
     <div class="login-container">
       <div class="head">
         <div class="name">
-          <div class="title">Vue3.0 后台管理系统</div>
+          <div class="title">前端技术开发有限公司</div>
+          <div class="sm-title">Vue3.0后台管理系统</div>
         </div>
       </div>
       <el-form label-position="top" :rules="rules" :model="ruleForm" ref="loginForm" class="login-form">
         <el-form-item label="账号" prop="username">
-          <el-input type="text" v-model.trim="ruleForm.username" autocomplete="off"></el-input>
+          <el-input type="text" v-model.trim="ruleForm.username" autocomplete="off" placeholder="admin"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model.trim="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <div style="color: #333">
-            登录表示您已同意
-            <a>《服务条款》</a>
-          </div>
-          <el-button style="width: 100%" type="primary" @click="submitForm" :loading="loading">立即登录</el-button>
-          <el-checkbox v-model="checked" @change="!checked">下次自动登录</el-checkbox>
+          <el-input type="password" v-model.trim="ruleForm.password" autocomplete="off" placeholder="123456"></el-input>
         </el-form-item>
       </el-form>
+      <div class="login-btns marginTop15">
+        <el-button style="width: 100%" type="primary" @click="submitForm" :loading="loading">立即登录</el-button>
+        <el-checkbox v-model="checked" @change="!checked">下次自动登录</el-checkbox>
+      </div>
     </div>
   </div>
 </template>
@@ -94,7 +91,7 @@ const handleTest = () => {
   width: 100%;
   background-color: #fff;
   height: 100vh;
-  /* background-image: linear-gradient(25deg, #077f7c, #3aa693, #5ecfaa, #7ffac2); */
+  background-image: linear-gradient(25deg, #077f7c, #3aa693, #5ecfaa, #7ffac2);
 }
 .login-container {
   width: 420px;
@@ -108,6 +105,11 @@ const handleTest = () => {
   justify-content: center;
   align-items: center;
   padding: 40px 0 40px 0;
+  .sm-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
 }
 .head img {
   width: 100px;
@@ -118,6 +120,7 @@ const handleTest = () => {
   font-size: 28px;
   color: var(--theme-color);
   font-weight: bold;
+  margin-bottom: 20px;
 }
 .head .tips {
   font-size: 12px;
@@ -126,6 +129,10 @@ const handleTest = () => {
 .login-form {
   width: 70%;
   margin: 0 auto;
+}
+.login-btns {
+  width: 70%;
+  margin: 25px auto 0;
 }
 </style>
 <style>

@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-10-26 16:04:34
  * @LastEditors: shaolong
- * @LastEditTime: 2022-10-27 17:09:43
+ * @LastEditTime: 2022-11-07 16:02:38
  * @Description: mock数据
  */
 import Mock from "mockjs";
@@ -83,18 +83,6 @@ Mock.mock(api.getMenusList, {
           type: 2,
           url: "sysUser",
           icon: "User"
-        },
-        {
-          name: "OrganManage",
-          component: "sysManage/OrganManage",
-          hidden: false,
-          keepAlive: false,
-          title: "机构管理",
-          parentName: "系统管理",
-          parentId: 1,
-          type: 2,
-          url: "organManage",
-          icon: "Histogram"
         }
       ]
     }

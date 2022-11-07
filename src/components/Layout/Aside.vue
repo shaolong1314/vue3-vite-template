@@ -85,7 +85,7 @@ const onRoutes = computed(() => {
 
 <style scoped lang="scss">
 .aside {
-  width: 200px !important;
+  width: 250px !important;
   background-color: #222832;
   overflow: hidden;
   -ms-overflow-style: none;

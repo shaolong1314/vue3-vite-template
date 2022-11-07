@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-08-29 09:29:49
  * @LastEditors: shaolong
- * @LastEditTime: 2022-10-27 11:40:49
+ * @LastEditTime: 2022-11-07 13:59:01
  * @Description:
  */
 import router from "./index.js";
@@ -21,7 +21,7 @@ router.beforeEach(async (to, from, next) => {
   if (getToken()) {
     /* has token*/
     if (to.path === "/login") {
-      next({ path: "/" });
+      next();
       NProgress.done();
     } else {
       if (store.getters.roles.length === 0) {
