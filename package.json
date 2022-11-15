@@ -12,16 +12,19 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
     "axios": "^0.27.2",
+    "echarts": "^5.4.0",
     "element-plus": "^2.2.14",
     "js-cookie": "^3.0.1",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "qs": "^6.11.0",
+    "tsparticles": "^2.5.3",
     "unplugin-element-plus": "^0.4.1",
     "vite": "3.0.9",
     "vite-plugin-compression": "^0.5.1",
     "vue": "^3.2.37",
     "vue-router": "^4.0.13",
+    "vue3-particles": "^2.5.3",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

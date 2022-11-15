@@ -85,8 +85,8 @@ export default defineConfig(({ mode }) => {
         "/api": { target: _process.VITE_BASE_URL, changeOrigin: true, rewrite: (path) => path.replace(/^\/api/, "") }
       },
       hmr: true,
-      port: 8080,
-      open: true
+      port: 8088,
+      open: false
     },
 
     build: {

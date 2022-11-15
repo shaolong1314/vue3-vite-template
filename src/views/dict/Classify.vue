@@ -1,9 +1,9 @@
 <!--
  * @Author: shaolong
- * @Date: 2022-08-29 09:29:49
+ * @Date: 2022-11-15 17:50:22
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-15 17:38:52
- * @Description: 
+ * @LastEditTime: 2022-11-15 17:53:58
+ * @Description: 字典分类
 -->
 <script setup>
 import { config } from "@/config";
@@ -21,7 +21,7 @@ const onEdit = () => {};
   <div class="page-container">
     <el-card>
       <el-form :inline="true" @submit.native.prevent :model="searchData" :size="config.ELEMENT_PLUS.SIZE">
-        <el-form-item label="用户名称">
+        <el-form-item label="分类名称">
           <el-input v-model="searchData.name" placeholder="请输入" clearable :size="config.ELEMENT_PLUS.SIZE"></el-input>
         </el-form-item>
         <el-form-item>
@@ -33,13 +33,12 @@ const onEdit = () => {};
 
     <div class="page-content">
       <div class="page-content-btns">
-        <el-button type="primary" :size="config.ELEMENT_PLUS.SIZE" @click="onAdd()">新增用户</el-button>
+        <el-button type="primary" :size="config.ELEMENT_PLUS.SIZE" @click="onAdd()">新增分类</el-button>
       </div>
       <div class="page-content-table">
         <el-table :data="tableData" ref="contentTable" row-key="user_id" :size="config.ELEMENT_PLUS.SIZE" height="100%">
-          <el-table-column :show-overflow-tooltip="true" label="用户名称" prop="name" />
-          <el-table-column label="部门名称" prop="company" align="center"></el-table-column>
-          <el-table-column :show-overflow-tooltip="true" prop="role" label="角色" />
+          <el-table-column :show-overflow-tooltip="true" label="分类名称" prop="name" />
+          <el-table-column label="备注" prop="company" align="center"></el-table-column>
           <el-table-column :show-overflow-tooltip="true" label="状态">
             <template #default="scope">
               {{ scope.row.status }}

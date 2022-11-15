@@ -2,7 +2,7 @@
 import { computed, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { getMenusList } from "@/api/sysManage/menuManage";
+import { loadFull } from "tsparticles";
 
 const loginForm = ref(null);
 const loading = ref(false);
@@ -47,19 +47,95 @@ const submitForm = () => {
     }
   });
 };
-const resetForm = () => {
-  loginForm.value.resetFields();
-};
 
-const handleTest = () => {
-  getMenusList().then((res) => {
-    console.log(res);
-  });
+const options = reactive({
+  background: {
+    color: {
+      value: "#2f3447" // 粒子颜色
+    }
+  },
+  fpsLimit: 60,
+  interactivity: {
+    events: {
+      onClick: {
+        enable: true,
+        mode: "push" // 可用的click模式有: "push", "remove", "repulse", "bubble"。
+      },
+      onHover: {
+        enable: true,
+        mode: "grab" // 可用的hover模式有: "grab", "repulse", "bubble"。
+      },
+      resize: true
+    },
+    modes: {
+      bubble: {
+        distance: 400,
+        duration: 2,
+        opacity: 0.8,
+        size: 40
+      },
+      push: {
+        quantity: 4
+      },
+      repulse: {
+        distance: 200,
+        duration: 0.4
+      }
+    }
+  },
+  particles: {
+    color: {
+      value: "#ffffff"
+    },
+    links: {
+      color: "#ffffff", // '#dedede'。线条颜色。
+      distance: 120, // 线条长度
+      enable: true, // 是否有线条
+      opacity: 0.4, // 线条透明度。
+      width: 1 // 线条宽度。
+    },
+    collisions: {
+      enable: false
+    },
+    move: {
+      direction: "none",
+      enable: true,
+      outMode: "bounce",
+      random: false,
+      speed: 2, // 粒子运动速度。
+      straight: false
+    },
+    number: {
+      density: {
+        enable: true,
+        area: 500
+      },
+      value: 20 // 粒子数量。
+    },
+    opacity: {
+      value: 0.4 // 粒子透明度。
+    },
+    shape: {
+      type: "circle" // 可用的粒子外观类型有："circle","edge","triangle", "polygon","star"
+    },
+    size: {
+      random: true,
+      value: 5
+    }
+  },
+  detectRetina: true
+});
+const particlesInit = async (engine) => {
+  await loadFull(engine);
+};
+const particlesLoaded = async (container) => {
+  console.log("Particles container loaded", container);
 };
 </script>
 
 <template>
   <div class="login-body">
+    <Particles id="tsparticles" :options="options" :particlesInit="particlesInit" :particlesLoaded="particlesLoaded" style="width: 100vw; height: 100vh" />
     <div class="login-container">
       <div class="head">
         <div class="name">
@@ -91,14 +167,17 @@ const handleTest = () => {
   width: 100%;
   background-color: #fff;
   height: 100vh;
-  background-image: linear-gradient(25deg, #077f7c, #3aa693, #5ecfaa, #7ffac2);
+  background-color: #2f3447;
+  position: relative;
 }
 .login-container {
+  position: absolute;
   width: 420px;
   height: 500px;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0px 0px 41px 0px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 }
 .head {
   display: flex;

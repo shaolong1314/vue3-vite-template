@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-08-29 09:29:49
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-07 11:06:55
+ * @LastEditTime: 2022-11-15 15:48:12
  * @Description:
  */
 import { createApp } from "vue";
@@ -12,11 +12,14 @@ import App from "./App.vue";
 import router from "./router";
 import { store } from "./store";
 import "./styles/global.scss";
+import "./styles/page-container.scss";
 // 路由鉴权
 import "./router/permission";
 
 // mock数据
 import "./mock/api";
+
+import Particles from "vue3-particles";
 
 const app = createApp(App).use(store);
 
@@ -29,4 +32,4 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 import permission from "./components/Permission";
 app.directive("permission", permission);
 
-app.use(router).mount("#app");
+app.use(router).use(Particles).mount("#app");

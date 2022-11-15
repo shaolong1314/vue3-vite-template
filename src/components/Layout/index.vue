@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-08-29 09:29:49
  * @LastEditors: shaolong
- * @LastEditTime: 2022-10-27 14:19:49
+ * @LastEditTime: 2022-11-15 16:39:39
  * @Description: 
 -->
 <script setup>
@@ -34,7 +34,7 @@ const state = reactive({
 <style scoped lang="scss">
 .layout {
   height: 100vh;
-  background-color: #ffffff;
+  background-color: #f7f7f7;
   .container {
     height: 100%;
     .content {
@@ -46,11 +46,13 @@ const state = reactive({
       .content-footer {
         height: 50px;
         flex-shrink: 0;
+        background-color: #fff;
       }
       .content-main {
         flex: 1;
+        height: 0;
         overflow: hidden;
-        padding: 10px;
+        // padding: 10px;
       }
     }
   }

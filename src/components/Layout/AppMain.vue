@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-08-29 09:29:49
  * @LastEditors: shaolong
- * @LastEditTime: 2022-10-27 14:29:37
+ * @LastEditTime: 2022-11-15 14:43:44
  * @Description: 
 -->
 <script setup>
@@ -45,13 +45,13 @@ const keepAliveArr = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-@import "~/styles/transition.css";
-
 .app-main {
   box-sizing: border-box;
   min-width: 1200px;
   width: 100%;
+  height: 100%;
   color: #000000;
   position: relative;
 }
+@import "~/styles/transition.css";
 </style>

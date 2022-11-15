@@ -7,6 +7,9 @@ body {
   margin: 0;
   box-sizing: border-box;
   font-size: 16px;
+  div {
+    box-sizing: border-box;
+  }
 }
 
 ul {
@@ -15,6 +18,10 @@ ul {
   li {
     list-style: none;
   }
+}
+
+.el-pagination {
+  margin-top: 15px;
 }
 
 .el-icon {

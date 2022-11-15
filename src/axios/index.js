@@ -1,14 +1,13 @@
 import Axios from "axios";
 import qs from "qs";
-import { ElNotification, ElMessage } from "element-plus";
+import { ElMessage } from "element-plus";
 import { store } from "~/store";
 import { getToken } from "@/utils/auth";
-import { tansParams } from "@/utils/format";
 
 // 创建axios实例
 const service = Axios.create({
   // 超时
-  timeout: 5000 * 1000,
+  timeout: 60 * 1000,
   withCredentials: true,
   responseType: "json",
   headers: {
@@ -53,12 +52,6 @@ service.interceptors.response.use(
       ElMessage.error(res.data.msg);
       return Promise.reject(new Error(res.data.msg));
     } else if (code !== 200) {
-      // let notNeedCode = [1610];
-      // if (!notNeedCode.includes(code)) {
-      //   ElNotification.error({
-      //     title: res.data.msg,
-      //   });
-      // }
       return Promise.reject(res.data);
     } else {
       return res.data;
@@ -84,49 +77,6 @@ service.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// 通用下载方法
-export function download(url, params, filename, method = "post", callback) {
-  if (method == "get") {
-    if (params && Object.keys(params).length > 0) {
-      url = url + "?" + tansParams(params);
-    }
-  }
-  return service[method](url, params, {
-    transformRequest: [
-      (params) => {
-        return tansParams(params);
-      }
-    ],
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    responseType: "blob"
-  })
-    .then((data) => {
-      if (callback) {
-        callback(data);
-      } else {
-        const content = data;
-        const blob = new Blob([content]);
-        if ("download" in document.createElement("a")) {
-          const elink = document.createElement("a");
-          elink.download = filename;
-          elink.style.display = "none";
-          elink.href = URL.createObjectURL(blob);
-          document.body.appendChild(elink);
-          elink.click();
-          URL.revokeObjectURL(elink.href);
-          document.body.removeChild(elink);
-        } else {
-          navigator.msSaveBlob(blob, filename);
-        }
-      }
-    })
-    .catch((r) => {
-      console.error(r);
-    });
-}
 
 function request(config) {
   if (config.method) {

@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-08-29 09:29:49
  * @LastEditors: shaolong
- * @LastEditTime: 2022-10-27 17:03:04
+ * @LastEditTime: 2022-11-15 17:30:55
  * @Description:
  */
 /**
@@ -22,7 +22,9 @@
   
  */
 
-import Layout from "~/components/Layout/index.vue";
+import Layout from "@/components/Layout/index.vue";
+import Login from "@/views/Login.vue";
+import Home from "@/views/home/index.vue";
 const routes = [
   // 首页
   {
@@ -33,7 +35,8 @@ const routes = [
       {
         path: "index",
         name: "Index",
-        component: () => import("../views/Index.vue"),
+        // component: () => import("../views/Index.vue"),
+        component: Home,
         breadcrumb: true,
         hidden: false,
         meta: {
@@ -45,7 +48,7 @@ const routes = [
   },
   {
     path: "/login",
-    component: () => import("../views/Login.vue"),
+    component: Login,
     breadcrumb: false,
     hidden: true,
     meta: {

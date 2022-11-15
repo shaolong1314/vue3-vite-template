@@ -1,3 +1,10 @@
+/*
+ * @Author: shaolong
+ * @Date: 2022-08-29 09:29:49
+ * @LastEditors: shaolong
+ * @LastEditTime: 2022-11-15 15:02:32
+ * @Description:
+ */
 // 全局配置
 
 export const config = {
@@ -31,7 +38,7 @@ export const config = {
     caseNumber: ""
   },
   ELEMENT_PLUS: {
-    SIZE: "small",
+    SIZE: "",
     PAGINATION_SIZE: false
   }
 };
