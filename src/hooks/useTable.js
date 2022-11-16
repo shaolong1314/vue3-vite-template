@@ -2,8 +2,8 @@
  * @Author: shaolong
  * @Date: 2022-08-29 09:29:49
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-15 17:35:51
- * @Description:
+ * @LastEditTime: 2022-11-16 10:38:35
+ * @Description: table处理Hooks
  */
 import { reactive, ref } from "vue";
 
@@ -52,8 +52,11 @@ export default function useTable(getList) {
     getTableList({ ...searchData, ...pagination });
   };
 
+  // 筛选
   const onSearch = () => {
-    console.log(searchData);
+    pagination.page = 1;
+    pagination.pageSize = 10;
+    getTableList({ ...searchData, ...pagination });
   };
 
   // 重置
@@ -66,6 +69,7 @@ export default function useTable(getList) {
     pagination.page = 1;
     pagination.pageSize = 10;
     pagination.sizes = [10, 20, 30, 40, 50];
+    getTableList({ ...searchData, ...pagination });
   };
 
   return {

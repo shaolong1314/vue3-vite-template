@@ -25,3 +25,17 @@
     }
   }
 }
+
+// 页面弹窗样式
+.dialog-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 10px;
+  align-items: center;
+  font-weight: 700;
+}
+.dialog-footer button:first-child {
+  margin-right: 10px;
+}

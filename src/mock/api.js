@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-10-26 16:04:34
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-15 17:54:43
+ * @LastEditTime: 2022-11-16 11:38:08
  * @Description: mock数据
  */
 import Mock from "mockjs";
@@ -11,7 +11,9 @@ const api = {
   loginOut: "/api/login/logout",
   getInfo: "/api/backend/publicize/getUserInfo",
   getMenusList: "/api/backend/publicize/getMenuInfo",
-  getRolesList: "/api/backend/role/finds"
+  getRolesList: "/api/backend/role/finds",
+  getDictClassifyList: "/api/backend/getDictClassifyList",
+  getDictList: "/api/backend/getDictList"
 };
 
 Mock.mock("/api/backend/publicize/login", {
@@ -151,6 +153,56 @@ Mock.mock(api.getRolesList, {
       name: "开发人员",
       remark: "",
       create_time: "2022-10-10 10:10:10"
+    }
+  ]
+});
+Mock.mock(api.getDictClassifyList, {
+  code: 200,
+  msg: "操作成功",
+  total: 3,
+  data: [
+    {
+      dictClassifyName: "用户状态",
+      id: 1,
+      remark: "",
+      dictClassifyKey: "userStatus"
+    },
+    {
+      dictClassifyName: "角色状态",
+      id: 2,
+      remark: "",
+      dictClassifyKey: "roleStatus"
+    },
+    {
+      dictClassifyName: "角色类别",
+      id: 2,
+      remark: "",
+      dictClassifyKey: "roleType"
+    }
+  ]
+});
+Mock.mock(api.getDictClassifyList, {
+  code: 200,
+  msg: "操作成功",
+  total: 3,
+  data: [
+    {
+      dictClassifyName: "用户状态",
+      id: 1,
+      remark: "",
+      dictClassifyKey: "userStatus"
+    },
+    {
+      dictClassifyName: "角色状态",
+      id: 2,
+      remark: "",
+      dictClassifyKey: "roleStatus"
+    },
+    {
+      dictClassifyName: "角色类别",
+      id: 3,
+      remark: "",
+      dictClassifyKey: "roleType"
     }
   ]
 });

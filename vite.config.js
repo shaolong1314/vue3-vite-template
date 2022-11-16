@@ -86,7 +86,8 @@ export default defineConfig(({ mode }) => {
       },
       hmr: true,
       port: 8088,
-      open: false
+      open: false,
+      host: "0.0.0.0"
     },
 
     build: {

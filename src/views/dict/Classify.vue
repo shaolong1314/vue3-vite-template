@@ -2,27 +2,32 @@
  * @Author: shaolong
  * @Date: 2022-11-15 17:50:22
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-15 17:53:58
+ * @LastEditTime: 2022-11-16 10:19:32
  * @Description: 字典分类
 -->
 <script setup>
 import { config } from "@/config";
-import { ref } from "vue";
 import useTable from "../../hooks/useTable";
-const { searchData, tableData, onReset, onSearch } = useTable();
-
-const expand = ref(false);
-const expandRow = ref([]);
+import { getDictClassifyList } from "@/api/dict";
+import { ref } from "vue";
+const { searchData, tableData, onReset, onSearch } = useTable(getDictClassifyList);
 
 const onAdd = () => {};
 const onEdit = () => {};
+
+const isShowDialog = ref(false);
+
+const form = reactive({
+  classifyName: "",
+  remark: ""
+});
 </script>
 <template>
   <div class="page-container">
     <el-card>
       <el-form :inline="true" @submit.native.prevent :model="searchData" :size="config.ELEMENT_PLUS.SIZE">
         <el-form-item label="分类名称">
-          <el-input v-model="searchData.name" placeholder="请输入" clearable :size="config.ELEMENT_PLUS.SIZE"></el-input>
+          <el-input v-model="searchData.dictClassifyName" placeholder="请输入" clearable :size="config.ELEMENT_PLUS.SIZE"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSearch()" :size="config.ELEMENT_PLUS.SIZE">查询</el-button>
@@ -33,17 +38,13 @@ const onEdit = () => {};
 
     <div class="page-content">
       <div class="page-content-btns">
-        <el-button type="primary" :size="config.ELEMENT_PLUS.SIZE" @click="onAdd()">新增分类</el-button>
+        <el-button type="primary" :size="config.ELEMENT_PLUS.SIZE" @click="isShowDialog = true">新增分类</el-button>
       </div>
       <div class="page-content-table">
-        <el-table :data="tableData" ref="contentTable" row-key="user_id" :size="config.ELEMENT_PLUS.SIZE" height="100%">
-          <el-table-column :show-overflow-tooltip="true" label="分类名称" prop="name" />
-          <el-table-column label="备注" prop="company" align="center"></el-table-column>
-          <el-table-column :show-overflow-tooltip="true" label="状态">
-            <template #default="scope">
-              {{ scope.row.status }}
-            </template>
-          </el-table-column>
+        <el-table :data="tableData" ref="contentTable" row-key="id" :size="config.ELEMENT_PLUS.SIZE" height="100%">
+          <el-table-column label="分类名称" prop="dictClassifyName" />
+          <el-table-column label="分类Key" prop="dictClassifyKey" />
+          <el-table-column label="备注" prop="remark" align="center"></el-table-column>
           <el-table-column label="操作" width="300px" align="center" fixed="right">
             <template #default="scope">
               <el-button :size="config.ELEMENT_PLUS.SIZE" @click="onAdd(scope.row)" type="primary">查看</el-button>
@@ -54,7 +55,31 @@ const onEdit = () => {};
         </el-table>
       </div>
     </div>
+
+    <!-- 新建字典分类弹窗 -->
+    <el-dialog v-model="isShowDialog" :show-close="false" destroy-on-close width="30%">
+      <template #header>
+        <div class="dialog-header">新增分类</div>
+      </template>
+      <el-form :model="form" label-width="80px">
+        <el-form-item label="分类名称">
+          <el-input v-model="form.name" />
+        </el-form-item>
+        <el-form-item label="分类Key">
+          <el-input v-model="form.key" />
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input v-model="form.remark" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="isShowDialog = false">Cancel</el-button>
+          <el-button type="primary" @click="isShowDialog = false">Confirm</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>

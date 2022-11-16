@@ -48,10 +48,8 @@ service.interceptors.response.use(
             location.href = "/";
           });
       });
-    } else if (code === 500) {
-      ElMessage.error(res.data.msg);
-      return Promise.reject(new Error(res.data.msg));
     } else if (code !== 200) {
+      ElMessage.error(res.data.msg);
       return Promise.reject(res.data);
     } else {
       return res.data;
