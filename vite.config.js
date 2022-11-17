@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
 
   console.log("=================================================");
   console.log(`当前环境为${mode}，api为${_process.VITE_BASE_URL}`);
+  console.log(`当前环境为${mode}，当前项目应部署在为${_process.VITE_BASE_DOMAIN}下`);
   console.log("=================================================");
 
   // 非开发环境采用自动导入
@@ -32,7 +33,7 @@ export default defineConfig(({ mode }) => {
   }
 
   const config = {
-    base: "/", // 根目录
+    base: "/" + _process.VITE_BASE_DOMAIN, // 项目目录
     resolve: {
       alias: {
         "~/": `${path.resolve(__dirname, "src")}/`,
