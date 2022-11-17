@@ -1,0 +1,1 @@
+import{r as e}from"./index-b2893d68.js";function n(t){return e({url:"/backend/getDictClassifyList",method:"POST",headers:{"Content-Type":"application/json"},data:t})}function s(t){return e({url:"/backend/getDictList",method:"POST",headers:{"Content-Type":"application/json"},data:t})}export{s as a,n as g};

@@ -1,0 +1,1 @@
+import{a as s,a8 as t,o,k as c,l as n,q as l,m as r,A as _}from"./index-cf262af7.js";const u={class:"page-menu"},f={__name:"success",setup(m){const e=s(0);return setTimeout(()=>{e.value=10},1e3),(d,i)=>{const a=t;return o(),c("div",u,[n(a,null,{default:l(()=>[r("div",null,"\u6210\u529F: "+_(e.value),1)]),_:1})])}}};export{f as default};
