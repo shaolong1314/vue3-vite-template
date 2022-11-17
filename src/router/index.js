@@ -5,7 +5,7 @@
  * @LastEditTime: 2022-11-17 14:51:01
  * @Description:
  */
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routers";
 
 const router = createRouter({
