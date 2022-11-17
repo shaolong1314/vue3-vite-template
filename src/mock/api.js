@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-10-26 16:04:34
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-16 11:38:08
+ * @LastEditTime: 2022-11-17 10:43:32
  * @Description: mock数据
  */
 import Mock from "mockjs";
@@ -203,6 +203,29 @@ Mock.mock(api.getDictClassifyList, {
       id: 3,
       remark: "",
       dictClassifyKey: "roleType"
+    }
+  ]
+});
+Mock.mock(api.getDictList, {
+  code: 200,
+  msg: "操作成功",
+  total: 3,
+  data: [
+    {
+      dictName: "禁用",
+      id: 1,
+      remark: "",
+      dictClassifyKey: 0,
+      dictClassifyId: 1,
+      dictClassifyName: "用户状态"
+    },
+    {
+      dictName: "开启",
+      id: 2,
+      remark: "",
+      dictClassifyKey: 1,
+      dictClassifyId: 1,
+      dictClassifyName: "用户状态"
     }
   ]
 });

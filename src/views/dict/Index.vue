@@ -2,16 +2,20 @@
  * @Author: shaolong
  * @Date: 2022-11-15 17:42:10
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-16 11:43:08
+ * @LastEditTime: 2022-11-17 10:54:50
  * @Description: 字典管理
 -->
 <script setup>
 import { config } from "@/config";
 import useTable from "../../hooks/useTable";
-import { ref } from "vue";
-import { getDictClassifyList } from "@/api/dict";
+import { reactive, ref } from "vue";
+import { getDictClassifyList, getDictList } from "@/api/dict";
 
-const { searchData, tableData, onReset, onSearch } = useTable();
+const params = reactive({
+  dictClassifyId: 1
+});
+
+const { searchData, tableData, onReset, onSearch } = useTable(getDictList, params);
 
 const onAdd = () => {};
 const onEdit = () => {};
@@ -42,6 +46,8 @@ const onSearchDictClassify = () => {};
 const checkoutClassify = (event) => {
   if (event.target && event.target.dataset && event.target.dataset.id) {
     selectId.value = event.target.dataset.id;
+    params.dictClassifyId = event.target.dataset.id;
+    onReset();
   }
 };
 </script>
@@ -70,7 +76,7 @@ const checkoutClassify = (event) => {
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSearch()" :size="config.ELEMENT_PLUS.SIZE">查询</el-button>
-            <el-button :size="config.ELEMENT_PLUS.SIZE" @click="onReset">刷新</el-button>
+            <el-button :size="config.ELEMENT_PLUS.SIZE" @click="onReset()">刷新</el-button>
           </el-form-item>
         </el-form>
       </el-card>

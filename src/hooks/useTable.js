@@ -2,12 +2,17 @@
  * @Author: shaolong
  * @Date: 2022-08-29 09:29:49
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-16 10:38:35
+ * @LastEditTime: 2022-11-17 10:50:00
  * @Description: table处理Hooks
  */
 import { reactive, ref } from "vue";
 
-export default function useTable(getList) {
+export default function useTable(getList, props) {
+  // 支持用户传入参数
+  let _props = {};
+  if (props && props.constructor == Object) {
+    _props = props;
+  }
   const searchData = reactive({});
   const pagination = reactive({
     total: 0,
@@ -37,14 +42,14 @@ export default function useTable(getList) {
 
   // 引入生命周期，执行搜索
   onMounted(() => {
-    getTableList({ ...searchData, ...pagination });
+    getTableList({ ...searchData, ...pagination, ..._props });
   });
 
   // 调整每一页多少行数据
   const sizeChange = (val) => {
     pagination.page = 1;
     pagination.pageSize = val;
-    getTableList({ ...searchData, ...pagination });
+    getTableList({ ...searchData, ...pagination, ..._props });
   };
   // 翻页的
   const currentChange = (val) => {
@@ -56,7 +61,7 @@ export default function useTable(getList) {
   const onSearch = () => {
     pagination.page = 1;
     pagination.pageSize = 10;
-    getTableList({ ...searchData, ...pagination });
+    getTableList({ ...searchData, ...pagination, ..._props });
   };
 
   // 重置
@@ -69,7 +74,7 @@ export default function useTable(getList) {
     pagination.page = 1;
     pagination.pageSize = 10;
     pagination.sizes = [10, 20, 30, 40, 50];
-    getTableList({ ...searchData, ...pagination });
+    getTableList({ ...searchData, ...pagination, ..._props });
   };
 
   return {
