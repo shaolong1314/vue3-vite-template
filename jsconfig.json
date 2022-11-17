@@ -1,20 +1,13 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "@/*": [
-                "src/*"
-            ],
-            "~/*": [
-                "src/*"
-            ],
-        }
-    },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
-    "vueCompilerOptions": {
-        "experimentalDisableTemplateSupport": true
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "~/*": ["src/*"]
     }
+  },
+  "exclude": ["node_modules", "dist"],
+  "vueCompilerOptions": {
+    "experimentalDisableTemplateSupport": true
+  }
 }
