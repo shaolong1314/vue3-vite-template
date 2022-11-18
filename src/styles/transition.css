@@ -41,11 +41,11 @@
   opacity: 1;
 }
 .routerSlide-enter-from {
-  transform: translate3d(-5%, 0, 0);
+  transform: translate3d(-20px, 0, 0);
   opacity: 0;
 }
 .routerSlide-leave-to {
-  transform: translate3d(5%, 0, 0);
+  transform: translate3d(20px, 0, 0);
   opacity: 0;
 }
 .routerSlide-leave-from {

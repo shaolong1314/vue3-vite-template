@@ -1,7 +1,14 @@
-import { ref, watch } from "vue";
+/*
+ * @Author: shaolong
+ * @Date: 2022-08-26 11:28:38
+ * @LastEditors: shaolong
+ * @LastEditTime: 2022-11-18 14:30:26
+ * @Description:
+ */
+import { ref } from "vue";
 
 // 防抖hooks
-export function useDebounce(cb, delay = 100) {
+export function useDebounce(cb, delay = 300) {
   const timer = ref(null);
 
   const handler = function () {
@@ -15,7 +22,7 @@ export function useDebounce(cb, delay = 100) {
     }, delay);
   };
 
-  const cancel = () => {
+  const cancel = function () {
     clearTimeout(timer);
     timer.value = null;
   };
@@ -26,18 +33,22 @@ export function useDebounce(cb, delay = 100) {
   };
 }
 
-export function useAssociateSearch() {
-  const keyword = ref("");
-
-  const search = () => {
-    console.log("search...", keyword.value);
-    // mock 请求接口获取数据
+// 节流hooks
+export function useThrottle(cb, delay = 500) {
+  let prev = Date.now();
+  const handler = function () {
+    // eslint-disable-next-line no-invalid-this
+    const context = this;
+    // eslint-disable-next-line prefer-rest-params
+    const args = arguments;
+    const now = Date.now();
+    if (now - prev >= delay) {
+      cb.apply(context, args);
+      prev = now;
+    }
   };
 
-  // watch(keyword, search) // 原始逻辑，每次变化都请求
-  watch(keyword, debounce(search, 1000)); // 去抖，停止操作1秒后再请求
-
   return {
-    keyword
+    handler
   };
 }

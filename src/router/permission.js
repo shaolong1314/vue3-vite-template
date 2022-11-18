@@ -2,14 +2,12 @@
  * @Author: shaolong
  * @Date: 2022-08-29 09:29:49
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-07 13:59:01
+ * @LastEditTime: 2022-11-18 15:43:10
  * @Description:
  */
 import router from "./index.js";
 import { store } from "../store";
 import { ElMessage } from "element-plus";
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
 import { getToken } from "~/utils/auth";
 
 NProgress.configure({ showSpinner: false });

@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-11-15 16:24:23
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-15 17:27:15
+ * @LastEditTime: 2022-11-18 11:02:32
  * @Description: 
 -->
 <template>
@@ -21,13 +21,7 @@
 </template>
 
 <script setup>
-import * as echarts from "echarts/core";
-import { GridComponent } from "echarts/components";
-import { BarChart } from "echarts/charts";
-import { CanvasRenderer } from "echarts/renderers";
-import { onMounted, onUnmounted } from "vue";
-
-echarts.use([GridComponent, BarChart, CanvasRenderer]);
+import * as echarts from "echarts";
 
 let myChart = null;
 

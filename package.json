@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite build && vite preview",
     "lint": "eslint --ext .js,.vue src --fix",
     "format": "prettier --write \"./**/*.{html,vue,js,json,md,scss}\"",
     "prepare": "husky install"
@@ -20,6 +20,8 @@
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "qs": "^6.11.0",
+    "rollup-plugin-visualizer": "^5.8.3",
+    "terser": "^5.15.1",
     "tsparticles": "^2.5.3",
     "unplugin-element-plus": "^0.4.1",
     "vite": "3.0.9",
@@ -38,6 +40,7 @@
     "eslint-plugin-vue": "^9.4.0",
     "husky": "^8.0.2",
     "prettier": "^2.7.1",
+    "rollup-plugin-external-globals": "^0.6.1",
     "sass": "^1.54.5",
     "unplugin-auto-import": "^0.11.2",
     "unplugin-vue-components": "^0.22.4",

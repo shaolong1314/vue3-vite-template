@@ -2,7 +2,7 @@
  * @Author: shaolong
  * @Date: 2022-11-15 16:24:23
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-15 17:28:20
+ * @LastEditTime: 2022-11-18 11:07:26
  * @Description: 
 -->
 <template>
@@ -27,14 +27,6 @@
 
 <script setup>
 import * as echarts from "echarts";
-import { TitleComponent, ToolboxComponent, TooltipComponent, GridComponent, LegendComponent } from "echarts/components";
-import { LineChart } from "echarts/charts";
-import { UniversalTransition } from "echarts/features";
-import { CanvasRenderer } from "echarts/renderers";
-import { onMounted } from "vue";
-
-echarts.use([TitleComponent, ToolboxComponent, TooltipComponent, GridComponent, LegendComponent, LineChart, CanvasRenderer, UniversalTransition]);
-
 let myChart = null;
 onMounted(() => {
   const chartDom = document.getElementById("echarts");

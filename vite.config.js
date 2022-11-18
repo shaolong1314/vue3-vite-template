@@ -9,6 +9,9 @@ import path from "path";
 import viteCompression from "vite-plugin-compression";
 import eslintPlugin from "vite-plugin-eslint";
 
+import { visualizer } from "rollup-plugin-visualizer";
+import externalGlobals from "rollup-plugin-external-globals";
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const _process = { ...process.env, ...loadEnv(mode, process.cwd()) };
@@ -21,7 +24,6 @@ export default defineConfig(({ mode }) => {
   // 非开发环境采用自动导入
   const componentsResolvers = [];
   if (mode == "production") {
-    console.log("生产环境");
     componentsResolvers.push(
       // 自动导入组件
       // eslint-disable-next-line new-cap
@@ -70,6 +72,8 @@ export default defineConfig(({ mode }) => {
       ElementPlus({
         useSource: true
       }),
+      // eslint-disable-next-line new-cap
+      mode == "development" && ElementPlusAllImport(),
       viteCompression({
         verbose: true,
         disable: false,
@@ -77,8 +81,7 @@ export default defineConfig(({ mode }) => {
         algorithm: "gzip",
         ext: ".gz"
       }),
-      // eslint-disable-next-line new-cap
-      mode == "development" && ElementPlusAllImport()
+      visualizer()
     ],
 
     server: {
@@ -92,18 +95,36 @@ export default defineConfig(({ mode }) => {
     },
 
     build: {
+      minify: "terser",
+      terserOptions: {
+        compress: {
+          // warnings: false,
+          drop_console: true, // 打包时删除console
+          drop_debugger: true, // 打包时删除 debugger
+          pure_funcs: ["console.log"]
+        },
+        output: {
+          // 去掉注释内容
+          comments: true
+        }
+      },
       rollupOptions: {
         // https://rollupjs.org/guide/en/#outputmanualchunks
         output: {
           manualChunks: {
-            index: ["./src/views/Index.vue"],
-            login: ["./src/views/Login.vue"],
-            error: ["./src/views/error/404.vue", "./src/views/error/401.vue"]
-          },
-          chunkFileNames: "static/js/[name]-[hash].js",
-          entryFileNames: "static/js/[name]-[hash].js",
-          assetFileNames: "static/[ext]/[name]-[hash].[ext]"
-        }
+            ElementPlusIcon: ["@element-plus/icons-vue"],
+            Particles: ["vue3-particles", "tsparticles"],
+            Mock: ["mockjs"]
+          }
+        },
+        external: ["echarts", "axios", "nprogress"],
+        plugins: [
+          externalGlobals({
+            echarts: "echarts",
+            axios: "axios",
+            nprogress: "NProgress"
+          })
+        ]
       }
     }
   };
