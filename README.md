@@ -2,11 +2,11 @@
  * @Author: shaolong
  * @Date: 2022-08-24 12:01:00
  * @LastEditors: shaolong
- * @LastEditTime: 2022-11-18 15:57:22
+ * @LastEditTime: 2022-11-18 17:14:03
  * @Description:
 -->
 
-# vue3-element-admin-ts
+# vue3-vite-template
 
 🎉 基于 Vite 3.0 + Vue 3.0 + Vue-Router 4.0 + Vuex 4.0 + element-plus + vuex 的后台管理系统
 
