@@ -14,8 +14,6 @@
 
 [vue3-element-admin](https://au1996.github.io/vue3-element-admin-ts) 是一个后台前端解决方案，它基于 [vue3](https://v3.cn.vuejs.org/guide/migration/introduction.html) 和 [element-plus](https://element-plus.gitee.io/#/zh-CN)实现。它使用了最新的前端技术栈，vite + vue3 + javascript ，提供最基础的框架模型，可以帮助你快速搭建企业级中后台产品原型。
 
-- [在线预览](https://shaolong1314.github.io/vue3-vite-template)
-
 ## 项目预览图
 
 ![](./public/1668671163854.png)
